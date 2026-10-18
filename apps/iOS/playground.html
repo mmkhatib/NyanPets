@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nyan's Playground</title>
+<style>
+  :root {
+    --bg: #fdf7ff; --card: #ffffff; --ink: #212529; --muted: #6c757d; --line: #e9d8f5;
+    --accent: #ae3ec9; --good: #2b8a3e; --bad: #c92a2a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #18121f; --card: #251c30; --ink: #f1f3f5; --muted: #adb5bd; --line: #3d2f4d; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font: 16px/1.5 -apple-system, system-ui, sans-serif;
+    padding: 20px 16px 140px; max-width: 760px; margin: 0 auto;
+  }
+  h1 { font-size: 26px; margin: 8px 0 4px; }
+  h2 { font-size: 18px; margin: 0 0 6px; }
+  p { margin: 0 0 10px; }
+  .lead { color: var(--muted); margin-bottom: 22px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(80, 30, 110, 0.08); padding: 16px; margin-top: 28px;
+  }
+  .grid .card { margin-top: 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; }
+  button {
+    font: inherit; font-size: 15px; padding: 9px 14px; border-radius: 9px; border: 1px solid var(--line);
+    background: var(--card); color: var(--ink);
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  textarea {
+    width: 100%; min-height: 90px; font: inherit; padding: 10px; border-radius: 9px;
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+  }
+  ul { padding-left: 20px; margin: 0; }
+  li { margin: 4px 0; }
+  a { color: var(--accent); }
+  #toasts { position: fixed; left: 16px; right: 16px; top: 12px; display: grid; gap: 8px; z-index: 5; pointer-events: none; }
+  .toast { padding: 10px 14px; border-radius: 10px; color: #fff; font-weight: 600; box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+  .toast.good { background: var(--good); }
+  .toast.bad { background: var(--bad); }
+</style>
+</head>
+<body>
+  <h1>Nyan's Playground</h1>
+  <p class="lead">A page for the cat to explore. Visit any website from the address bar and it comes along.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Play</h2>
+      <ul>
+        <li><b>Tap</b> the cat to drop a fish. Five fish in ten seconds make it rounder.</li>
+        <li><b>Touch and hold</b> the cat to pet it.</li>
+        <li><b>Drag</b> it onto a card, or <b>fling</b> it to fly.</li>
+        <li>Turn on the <b>laser</b>, then drag your finger around.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Ship it</h2>
+      <p>The cat cheers when you finish something.</p>
+      <div class="row">
+        <button class="primary" type="button">Approve</button>
+        <button type="button">Ship it</button>
+        <button type="button">Merge</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Alerts</h2>
+    <p>Errors startle it. Good news makes it jump for joy.</p>
+    <div class="row">
+      <button type="button" id="bad">Fail the build</button>
+      <button type="button" id="good">Deploy succeeded</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Typing</h2>
+    <p>Type here and the cat pulls out its own laptop.</p>
+    <textarea placeholder="Write something…"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Places to visit</h2>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Nyan_Cat">Nyan Cat on Wikipedia</a></li>
+      <li><a href="https://news.ycombinator.com/">Hacker News</a></li>
+      <li><a href="https://github.com/">GitHub</a></li>
+    </ul>
+  </div>
+
+  <div id="toasts"></div>
+<script>
+  // Toasts use role="alert", like real apps, which is what the cat watches for.
+  function toast(kind, text) {
+    const t = document.createElement('div');
+    t.className = 'toast ' + kind;
+    t.setAttribute('role', 'alert');
+    t.textContent = text;
+    document.getElementById('toasts').append(t);
+    setTimeout(() => t.remove(), 3000);
+  }
+  document.getElementById('bad').addEventListener('click', () => toast('bad', 'Build failed: 3 tests failed'));
+  document.getElementById('good').addEventListener('click', () => toast('good', 'Deployment succeeded'));
+</script>
+</body>
+</html>

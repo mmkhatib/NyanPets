@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A315D00CD3F87CBE342D597 /* NyanPetsMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4505A575292848A2715C5E56 /* NyanPetsMacApp.swift */; };
+		124EAC90EF8CCF7493FA4A6C /* overlay.html in Resources */ = {isa = PBXBuildFile; fileRef = ACE67877FDD8487CF4B88264 /* overlay.html */; };
+		17DDCC722611CC880BD43EEB /* OverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC0A5C35AB8B7B8C515CF3 /* OverlayController.swift */; };
+		1D08CC1A8D8F05335DF1D610 /* nyanpets.user.js in Resources */ = {isa = PBXBuildFile; fileRef = B4E6ED972323C71E2CD48F84 /* nyanpets.user.js */; };
+		3961D7EE68CB12F3576926F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC340E491CBED381C070AC0A /* Assets.xcassets */; };
+		42E2CA91EF712A28909A2596 /* playground.html in Resources */ = {isa = PBXBuildFile; fileRef = 9C059B880B1335232A1A39E1 /* playground.html */; };
+		51BC8EC24E0D5F92DB4C54DB /* NyanPetsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE83A9D6400CB0B4E86B4718 /* NyanPetsApp.swift */; };
+		6025ADD477607F45D9328963 /* NyanScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD330896E39CAE376D885AF /* NyanScripts.swift */; };
+		7560141E8A6749B65B7E6428 /* NyanScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD330896E39CAE376D885AF /* NyanScripts.swift */; };
+		C0458F7F5A7D0BC15EE24FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC340E491CBED381C070AC0A /* Assets.xcassets */; };
+		E16DE2A2B2DF466DF70EBDA7 /* nyan-host.js in Resources */ = {isa = PBXBuildFile; fileRef = CFC5E7085A6838080BE7FBA1 /* nyan-host.js */; };
+		E437CCA975ACBF471F30B81E /* nyanpets.user.js in Resources */ = {isa = PBXBuildFile; fileRef = B4E6ED972323C71E2CD48F84 /* nyanpets.user.js */; };
+		F4C0794AD90A8FDBEE6108DE /* PetBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77401099EB3CFC912216B5FA /* PetBrowser.swift */; };
+		F5BDE5BFD35C9CE1178B482E /* nyan-host.js in Resources */ = {isa = PBXBuildFile; fileRef = CFC5E7085A6838080BE7FBA1 /* nyan-host.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		092EDE38BA404BDD83E5AE3D /* NyanPets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NyanPets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28EE746AF287F8FA2B41E296 /* NyanPets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NyanPets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DD330896E39CAE376D885AF /* NyanScripts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyanScripts.swift; sourceTree = "<group>"; };
+		4505A575292848A2715C5E56 /* NyanPetsMacApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyanPetsMacApp.swift; sourceTree = "<group>"; };
+		4DDC0A5C35AB8B7B8C515CF3 /* OverlayController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OverlayController.swift; sourceTree = "<group>"; };
+		77401099EB3CFC912216B5FA /* PetBrowser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PetBrowser.swift; sourceTree = "<group>"; };
+		78ECA7FC0A491ECA3E7F10DB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C059B880B1335232A1A39E1 /* playground.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; path = playground.html; sourceTree = "<group>"; };
+		ACE67877FDD8487CF4B88264 /* overlay.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; path = overlay.html; sourceTree = "<group>"; };
+		AE83A9D6400CB0B4E86B4718 /* NyanPetsApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyanPetsApp.swift; sourceTree = "<group>"; };
+		B4E6ED972323C71E2CD48F84 /* nyanpets.user.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; path = nyanpets.user.js; sourceTree = "<group>"; };
+		CFC5E7085A6838080BE7FBA1 /* nyan-host.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; path = "nyan-host.js"; sourceTree = "<group>"; };
+		DC340E491CBED381C070AC0A /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E98AE8348723FB1A23AA38EE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4E478449E88B6B566A6E01A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66C97084ED4A371ED61ADB1E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BE3B779647AD5315DA83C2B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3189AB43B6BE7BC02F74F654 /* OS X */,
+				3092DB558CECEABEE365557D /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3092DB558CECEABEE365557D /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		3189AB43B6BE7BC02F74F654 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		74BB653618CE4AD294A2DB50 = {
+			isa = PBXGroup;
+			children = (
+				E2882AC5B4E95C6F82976144 /* Products */,
+				2BE3B779647AD5315DA83C2B /* Frameworks */,
+				B4E6ED972323C71E2CD48F84 /* nyanpets.user.js */,
+				C0248F6AEB24FB742DEC9016 /* apps */,
+			);
+			sourceTree = "<group>";
+		};
+		9213378C1E44C795845CD4BE /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				AE83A9D6400CB0B4E86B4718 /* NyanPetsApp.swift */,
+				77401099EB3CFC912216B5FA /* PetBrowser.swift */,
+				9C059B880B1335232A1A39E1 /* playground.html */,
+				78ECA7FC0A491ECA3E7F10DB /* Info.plist */,
+			);
+			name = iOS;
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		BA1787AC2D5678E47C90956E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				2DD330896E39CAE376D885AF /* NyanScripts.swift */,
+				CFC5E7085A6838080BE7FBA1 /* nyan-host.js */,
+				DC340E491CBED381C070AC0A /* Assets.xcassets */,
+			);
+			name = Shared;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C0248F6AEB24FB742DEC9016 /* apps */ = {
+			isa = PBXGroup;
+			children = (
+				BA1787AC2D5678E47C90956E /* Shared */,
+				ECEBECFEC1983EA2E5ABC9DB /* macOS */,
+				9213378C1E44C795845CD4BE /* iOS */,
+			);
+			name = apps;
+			path = apps;
+			sourceTree = "<group>";
+		};
+		E2882AC5B4E95C6F82976144 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				28EE746AF287F8FA2B41E296 /* NyanPets.app */,
+				092EDE38BA404BDD83E5AE3D /* NyanPets.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECEBECFEC1983EA2E5ABC9DB /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				4505A575292848A2715C5E56 /* NyanPetsMacApp.swift */,
+				4DDC0A5C35AB8B7B8C515CF3 /* OverlayController.swift */,
+				ACE67877FDD8487CF4B88264 /* overlay.html */,
+				E98AE8348723FB1A23AA38EE /* Info.plist */,
+			);
+			name = macOS;
+			path = macOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7BD8AFD3A8F3A6D77A776C78 /* NyanPets iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40AFF3DE2B912173DCAE9FE4 /* Build configuration list for PBXNativeTarget "NyanPets iOS" */;
+			buildPhases = (
+				270F389F3CEB42C1606F9BFC /* Sources */,
+				66C97084ED4A371ED61ADB1E /* Frameworks */,
+				2E05B977EB4D8FBAB3D3E447 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "NyanPets iOS";
+			productName = "NyanPets iOS";
+			productReference = 092EDE38BA404BDD83E5AE3D /* NyanPets.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FB979680DC47CDEFF9C00548 /* NyanPets macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED8E45E8408083047BDEE21E /* Build configuration list for PBXNativeTarget "NyanPets macOS" */;
+			buildPhases = (
+				8C836F449F0FB11D64D9E3CD /* Sources */,
+				4E478449E88B6B566A6E01A7 /* Frameworks */,
+				2863FEB57A6DE3DF7A0F6570 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "NyanPets macOS";
+			productName = "NyanPets macOS";
+			productReference = 28EE746AF287F8FA2B41E296 /* NyanPets.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98A0A769EA0D94091D35ECD3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 28B664F453BDD4622EE88298 /* Build configuration list for PBXProject "NyanPets" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 74BB653618CE4AD294A2DB50;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 100;
+			productRefGroup = E2882AC5B4E95C6F82976144 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FB979680DC47CDEFF9C00548 /* NyanPets macOS */,
+				7BD8AFD3A8F3A6D77A776C78 /* NyanPets iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2863FEB57A6DE3DF7A0F6570 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D08CC1A8D8F05335DF1D610 /* nyanpets.user.js in Resources */,
+				F5BDE5BFD35C9CE1178B482E /* nyan-host.js in Resources */,
+				124EAC90EF8CCF7493FA4A6C /* overlay.html in Resources */,
+				C0458F7F5A7D0BC15EE24FFE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E05B977EB4D8FBAB3D3E447 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E437CCA975ACBF471F30B81E /* nyanpets.user.js in Resources */,
+				E16DE2A2B2DF466DF70EBDA7 /* nyan-host.js in Resources */,
+				42E2CA91EF712A28909A2596 /* playground.html in Resources */,
+				3961D7EE68CB12F3576926F4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		270F389F3CEB42C1606F9BFC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51BC8EC24E0D5F92DB4C54DB /* NyanPetsApp.swift in Sources */,
+				F4C0794AD90A8FDBEE6108DE /* PetBrowser.swift in Sources */,
+				7560141E8A6749B65B7E6428 /* NyanScripts.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C836F449F0FB11D64D9E3CD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A315D00CD3F87CBE342D597 /* NyanPetsMacApp.swift in Sources */,
+				17DDCC722611CC880BD43EEB /* OverlayController.swift in Sources */,
+				6025ADD477607F45D9328963 /* NyanScripts.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		07415A7D3E1AAE10E844B4FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = apps/macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 3.10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.nyanpets.mac;
+				PRODUCT_NAME = NyanPets;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1EAE1E096FDAF383CEBC13E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = apps/macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 3.10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.nyanpets.mac;
+				PRODUCT_NAME = NyanPets;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		30F63C6C94D4F7EBC49C0147 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		446B8E0E5942E34229A703D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = apps/iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.nyanpets.ios;
+				PRODUCT_NAME = NyanPets;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CE069F71FF357291C35F62EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = apps/iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.10.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.nyanpets.ios;
+				PRODUCT_NAME = NyanPets;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F008FC219F4443B120A1631D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		28B664F453BDD4622EE88298 /* Build configuration list for PBXProject "NyanPets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30F63C6C94D4F7EBC49C0147 /* Debug */,
+				F008FC219F4443B120A1631D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40AFF3DE2B912173DCAE9FE4 /* Build configuration list for PBXNativeTarget "NyanPets iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE069F71FF357291C35F62EB /* Release */,
+				446B8E0E5942E34229A703D4 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED8E45E8408083047BDEE21E /* Build configuration list for PBXNativeTarget "NyanPets macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EAE1E096FDAF383CEBC13E6 /* Release */,
+				07415A7D3E1AAE10E844B4FD /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 98A0A769EA0D94091D35ECD3 /* Project object */;
+}
