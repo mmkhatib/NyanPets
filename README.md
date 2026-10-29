@@ -47,7 +47,8 @@ apps/Shared/nyan-host.js     stands in for Tampermonkey inside the apps
 apps/Shared/NyanScripts.swift  injects both into a WKWebView, stores the cat's state
 apps/macOS/                  transparent click-through overlay + menu bar item
 apps/iOS/                    SwiftUI app + the cat's room (room.html)
-tools/                       regenerate the Xcode project and the app icons
+tools/                       regenerate the Xcode project and the app icons; JS tests
+HANDOFF.md                   what is left to build and check on a Mac
 ```
 
 The apps load the userscript as is. `nyan-host.js` runs first, in the same
