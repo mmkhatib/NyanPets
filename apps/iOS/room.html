@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Nyan's Room</title>
+<style>
+  /* The room the cat lives in. Every piece of furniture is a perch: the cat
+     stands on elements with a visible top edge (a background, border, or
+     shadow) at least 80px wide and 24px tall, so each perch below is sized
+     for that. The bottom of the screen is the floor. */
+  :root {
+    --wall-a: #f6e7ff; --wall-b: #fdf4ff; --stripe: rgba(174, 62, 201, 0.05);
+    --wood: #b7794a; --wood-dark: #8a5530; --wood-light: #d39a6a;
+    --floor: #c58b5c; --floor-line: rgba(0, 0, 0, 0.12);
+    --couch: #6c8cd5; --couch-dark: #4d6bb3; --carpet: #e9a6c9; --carpet-dark: #c97aa5;
+    --frame: #ffffff; --ink: #3b2a48;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --wall-a: #241a33; --wall-b: #2e2240; --stripe: rgba(255, 255, 255, 0.03);
+      --wood: #8a5a36; --wood-dark: #5e3a20; --wood-light: #a8714a;
+      --floor: #7a5236; --couch: #4a5f99; --couch-dark: #364780;
+      --carpet: #a8678a; --carpet-dark: #85496b; --frame: #d9cce6; --ink: #eadcf5;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%; overflow: hidden; background: var(--wall-b);
+    -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+    touch-action: manipulation; overscroll-behavior: none;
+  }
+  .room {
+    position: fixed; inset: 0; overflow: hidden;
+    background:
+      repeating-linear-gradient(90deg, var(--stripe) 0 22px, transparent 22px 44px),
+      linear-gradient(180deg, var(--wall-a), var(--wall-b));
+  }
+  .floor {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 11%;
+    background: repeating-linear-gradient(90deg, var(--floor) 0 78px, var(--floor-line) 78px 80px), var(--floor);
+    border-top: 4px solid var(--wood-dark);
+  }
+  .baseboard { position: absolute; left: 0; right: 0; bottom: 11%; height: 10px; background: var(--wood-light); opacity: 0.6; }
+
+  /* Window with the sky outside; the sky follows the time of day. */
+  .window {
+    position: absolute; left: 6%; top: calc(env(safe-area-inset-top) + 9%);
+    width: clamp(120px, 30%, 280px); height: clamp(110px, 22%, 220px);
+    border: 8px solid var(--frame); border-radius: 6px; overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+  }
+  .sky { position: absolute; inset: 0; transition: background 2s; }
+  .pane { position: absolute; background: var(--frame); }
+  .pane.v { left: 50%; top: 0; bottom: 0; width: 6px; margin-left: -3px; }
+  .pane.h { top: 50%; left: 0; right: 0; height: 6px; margin-top: -3px; }
+  .orb { position: absolute; width: 26px; height: 26px; border-radius: 50%; right: 16%; top: 14%; transition: all 2s; }
+  .star { position: absolute; width: 3px; height: 3px; background: #fff; border-radius: 1px; opacity: 0; transition: opacity 2s; }
+  .sill {
+    position: absolute; left: calc(6% - 12px); top: calc(env(safe-area-inset-top) + 9% + clamp(110px, 22%, 220px));
+    width: calc(clamp(120px, 30%, 280px) + 24px); height: 26px;
+    background: var(--wood-light); border-radius: 4px; box-shadow: 0 4px 0 var(--wood-dark);
+  }
+
+  /* Wall shelves with books and a plant on them. */
+  .shelf {
+    position: absolute; right: 5%; width: clamp(110px, 32%, 300px); height: 24px;
+    background: var(--wood); border-radius: 3px; box-shadow: 0 5px 0 var(--wood-dark);
+  }
+  .shelf.one { top: 38%; }
+  .shelf.two { top: 57%; right: 10%; }
+  .things { position: absolute; bottom: 100%; left: 8px; display: flex; align-items: flex-end; gap: 3px; }
+  .book { width: 12px; border-radius: 2px 2px 0 0; }
+  .pot { width: 22px; height: 18px; background: #d9663a; border-radius: 0 0 6px 6px; margin-left: 10px; position: relative; }
+  .pot::before { content: ''; position: absolute; left: 3px; bottom: 16px; width: 16px; height: 20px; background: #4caf50; border-radius: 50% 50% 40% 40%; }
+
+  /* Picture of the cat's favorite food. */
+  .picture {
+    position: absolute; left: 44%; top: calc(env(safe-area-inset-top) + 8%);
+    width: clamp(90px, 16%, 150px); height: clamp(70px, 11%, 110px);
+    background: #fff4d6; border: 6px solid var(--wood-dark); border-radius: 3px;
+    display: flex; align-items: center; justify-content: center; font-size: 34px;
+  }
+
+  /* Cat tree in the corner: a post with carpeted platforms. */
+  .tree { position: absolute; left: 4%; bottom: 11%; width: clamp(100px, 20%, 170px); height: 46%; }
+  .post { position: absolute; left: 50%; width: 16px; margin-left: -8px; top: 8%; bottom: 0; background: repeating-linear-gradient(180deg, #c9a46e 0 6px, #b38c58 6px 8px); }
+  .deck {
+    position: absolute; height: 24px; background: var(--carpet); border-radius: 8px;
+    box-shadow: 0 4px 0 var(--carpet-dark);
+  }
+  .deck.top { top: 8%; left: 0; right: 0; }
+  .deck.mid { top: 48%; left: 18%; right: -10%; }
+  .tree-base { position: absolute; left: -6%; right: -6%; bottom: 0; height: 26px; background: var(--carpet-dark); border-radius: 8px 8px 0 0; }
+
+  /* Couch. */
+  .couch { position: absolute; right: 6%; bottom: 11%; width: clamp(180px, 42%, 420px); height: clamp(90px, 15%, 150px); }
+  .couch-back {
+    position: absolute; left: 6%; right: 6%; top: 0; height: 60%;
+    background: var(--couch); border-radius: 18px 18px 6px 6px;
+  }
+  .couch-seat {
+    position: absolute; left: 0; right: 0; top: 46%; height: 34%;
+    background: var(--couch-dark); border-radius: 12px; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+  }
+  .couch-leg { position: absolute; bottom: 0; width: 10px; height: 20%; background: var(--wood-dark); }
+  .couch-leg.l { left: 8%; } .couch-leg.r { right: 8%; }
+
+  .rug {
+    position: absolute; left: 30%; right: 30%; bottom: 3%; height: 5%;
+    background: radial-gradient(ellipse at center, #f3c1dc 0 40%, #e48bbd 41% 60%, #f3c1dc 61%);
+    border-radius: 50%; opacity: 0.85;
+  }
+  .lamp-glow {
+    position: absolute; right: 2%; top: 20%; width: 50%; height: 60%;
+    background: radial-gradient(circle, rgba(255, 214, 120, 0.28), transparent 65%);
+    opacity: 0; transition: opacity 2s; pointer-events: none;
+  }
+  body.night .lamp-glow { opacity: 1; }
+
+  /* iPhone on its side: little height, so the furniture spreads sideways. */
+  @media (orientation: landscape) and (max-height: 520px) {
+    .window { left: 24%; top: 7%; width: 150px; height: 100px; }
+    .sill { left: calc(24% - 12px); top: calc(7% + 100px); width: 174px; }
+    .picture { left: 50%; top: 9%; width: 90px; height: 64px; font-size: 26px; }
+    .tree { left: max(2%, env(safe-area-inset-left)); height: 64%; width: 120px; }
+    .shelf.one { top: 24%; right: max(4%, env(safe-area-inset-right)); width: 170px; }
+    .shelf.two { display: none; }
+    .couch { right: max(5%, env(safe-area-inset-right)); width: 34%; height: 26%; }
+  }
+</style>
+</head>
+<body>
+<div class="room" role="img" aria-label="Nyan's room: a window, wall shelves, a cat tree, and a couch">
+  <div class="window" data-nyan-perch>
+    <div class="sky" id="sky"></div>
+    <div class="orb" id="orb"></div>
+    <div id="stars"></div>
+    <div class="pane v"></div>
+    <div class="pane h"></div>
+  </div>
+  <div class="sill" data-nyan-perch></div>
+
+  <div class="picture" data-nyan-perch aria-hidden="true">🐟</div>
+
+  <div class="shelf one" data-nyan-perch>
+    <div class="things">
+      <div class="book" style="height:30px;background:#e8590c"></div>
+      <div class="book" style="height:24px;background:#1971c2"></div>
+      <div class="book" style="height:34px;background:#2f9e44"></div>
+      <div class="book" style="height:27px;background:#ae3ec9"></div>
+      <div class="pot"></div>
+    </div>
+  </div>
+  <div class="shelf two" data-nyan-perch>
+    <div class="things">
+      <div class="book" style="height:26px;background:#f08c00"></div>
+      <div class="book" style="height:32px;background:#c2255c"></div>
+    </div>
+  </div>
+
+  <div class="lamp-glow"></div>
+  <div class="baseboard"></div>
+  <div class="floor"></div>
+  <div class="rug"></div>
+
+  <div class="tree">
+    <div class="tree-base" data-nyan-perch></div>
+    <div class="post"></div>
+    <div class="deck mid" data-nyan-perch></div>
+    <div class="deck top" data-nyan-perch></div>
+  </div>
+
+  <div class="couch">
+    <div class="couch-leg l"></div>
+    <div class="couch-leg r"></div>
+    <div class="couch-back" data-nyan-perch></div>
+    <div class="couch-seat" data-nyan-perch></div>
+  </div>
+</div>
+<script>
+  // The window shows the sky for the time of day: morning, day, evening, night.
+  (function () {
+    const sky = document.getElementById('sky'), orb = document.getElementById('orb');
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 14; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = (5 + Math.random() * 90) + '%';
+      s.style.top = (5 + Math.random() * 70) + '%';
+      stars.append(s);
+    }
+    function paint() {
+      const h = new Date().getHours() + new Date().getMinutes() / 60;
+      let bg, sun = true, night = false;
+      if (h >= 6 && h < 9) bg = 'linear-gradient(#ffd3a5, #fd9fb0)';
+      else if (h >= 9 && h < 17) bg = 'linear-gradient(#7cc6fe, #c7ecff)';
+      else if (h >= 17 && h < 20) bg = 'linear-gradient(#ff9a76, #a46bd0)';
+      else { bg = 'linear-gradient(#0b1a40, #24346b)'; sun = false; night = true; }
+      sky.style.background = bg;
+      orb.style.background = sun ? '#ffe066' : '#f1f3f5';
+      orb.style.boxShadow = sun ? '0 0 18px #ffd43b' : 'inset -7px -2px 0 #c9ced6';
+      for (const s of stars.children) s.style.opacity = night ? String(0.5 + Math.random() * 0.5) : '0';
+      document.body.classList.toggle('night', night);
+    }
+    paint();
+    setInterval(paint, 60000);
+  })();
+</script>
+</body>
+</html>

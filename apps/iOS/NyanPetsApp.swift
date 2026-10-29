@@ -1,8 +1,8 @@
 import SwiftUI
 import WebKit
 
-/// NyanPets for iPhone and iPad: a small browser with the cat on every
-/// page. Its home page is a playground built for the cat to perch on.
+/// NyanPets for iPhone and iPad: the cat lives in its own room, with shelves,
+/// a cat tree, and a couch to perch on.
 @main
 struct NyanPetsApp: App {
     var body: some Scene {
@@ -13,101 +13,85 @@ struct NyanPetsApp: App {
 }
 
 struct ContentView: View {
-    @StateObject private var browser = PetBrowser()
-    @State private var typed = ""
-    @FocusState private var editing: Bool
+    @StateObject private var room = PetRoom()
+    @State private var showHelp = false
 
     var body: some View {
         VStack(spacing: 0) {
-            addressBar
-            ZStack(alignment: .top) {
-                WebViewHost(webView: browser.webView)
-                    .ignoresSafeArea(.container, edges: .bottom)
-                if browser.isLoading {
-                    ProgressView(value: browser.progress)
-                        .progressViewStyle(.linear)
-                        .tint(.pink)
-                }
-            }
-            catBar
+            WebViewHost(webView: room.webView)
+                .ignoresSafeArea(.container, edges: [.top, .horizontal])
+                .overlay(alignment: .topLeading) { moodBadge }
+            controls
         }
-        .onChange(of: browser.address) { new in
-            if !editing { typed = new }
-        }
+        .background(Color(.systemBackground))
+        .sheet(isPresented: $showHelp) { HelpView() }
     }
 
-    private var addressBar: some View {
-        HStack(spacing: 10) {
-            Button { browser.back() } label: { Image(systemName: "chevron.left") }
-                .disabled(!browser.canGoBack)
-                .accessibilityLabel("Back")
-            Button { browser.forward() } label: { Image(systemName: "chevron.right") }
-                .disabled(!browser.canGoForward)
-                .accessibilityLabel("Forward")
-            TextField(browser.onHome ? "Search or enter website" : browser.title, text: $typed)
-                .textFieldStyle(.roundedBorder)
-                .keyboardType(.webSearch)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .submitLabel(.go)
-                .focused($editing)
-                .onSubmit {
-                    browser.open(typed)
-                    editing = false
-                }
-            Button { browser.isLoading ? browser.webView.stopLoading() : browser.reload() } label: {
-                Image(systemName: browser.isLoading ? "xmark" : "arrow.clockwise")
+    private var moodBadge: some View {
+        HStack(spacing: 6) {
+            Image(systemName: room.moodSymbol)
+                .foregroundStyle(room.mood >= 0.45 ? Color.pink : Color.secondary)
+            Text(room.moodText)
+            if room.chub > 0 {
+                Text("·")
+                Text(room.chub >= 5 ? "Stuffed" : "Round \(room.chub)/5")
             }
-            .accessibilityLabel(browser.isLoading ? "Stop" : "Reload")
-            Button { browser.goHome() } label: { Image(systemName: "house") }
-                .accessibilityLabel("Playground")
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(.bar)
+        .font(.footnote.weight(.semibold))
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(.ultraThinMaterial, in: Capsule())
+        .padding(12)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Mood: \(room.moodText)")
     }
 
-    private var catBar: some View {
-        HStack {
-            if browser.hidden {
-                barButton("Show", "eye") { browser.act("show") }
+    private var controls: some View {
+        HStack(spacing: 0) {
+            if room.hidden {
+                barButton("Show", "eye") { room.act("show") }
             } else {
-                barButton("Feed", "fish.fill") { browser.act("feed") }
-                barButton("Yarn", "tennisball.fill") { browser.act("yarn") }
-                barButton("Laser", "scope", on: browser.laser) { browser.act("laser") }
-                barButton("Pet", "hand.raised.fill") { browser.act("pet") }
-                barButton("Nap", "moon.zzz.fill") { browser.act("nap") }
+                barButton("Feed", "fish.fill") { room.act("feed") }
+                barButton("Yarn", "tennisball.fill") { room.act("yarn") }
+                barButton("Laser", "scope", on: room.laser) { room.act("laser") }
+                barButton("Pet", "hand.raised.fill") { room.act("pet") }
+                barButton(room.sleeping ? "Wake" : "Nap", room.sleeping ? "sun.max.fill" : "moon.zzz.fill") {
+                    room.act("nap")
+                }
             }
-            Menu {
-                Section("Size: \(browser.sizeName)") {
-                    Button { browser.act("bigger") } label: { Label("Bigger", systemImage: "plus.magnifyingglass") }
-                        .disabled(browser.size >= browser.sizes - 1)
-                    Button { browser.act("smaller") } label: { Label("Smaller", systemImage: "minus.magnifyingglass") }
-                        .disabled(browser.size <= 0)
-                }
-                Section {
-                    Toggle("Perch on Page Elements", isOn: Binding(get: { browser.perch }, set: { _ in browser.act("perch") }))
-                    Toggle("Show Perch Spots", isOn: Binding(get: { browser.spots }, set: { _ in browser.act("spots") }))
-                }
-                Section {
-                    Button { browser.act("reset") } label: { Label("Reset Position", systemImage: "arrow.counterclockwise") }
-                    if browser.hidden {
-                        Button { browser.act("show") } label: { Label("Show Nyan", systemImage: "eye") }
-                    } else {
-                        Button { browser.act("hide") } label: { Label("Hide Nyan", systemImage: "eye.slash") }
-                    }
-                }
-                Section("NyanPets \(NyanScripts.version)") {
-                    Text("Tap the cat for a fish. Touch and hold to pet. Drag to carry, or fling it.")
-                }
-            } label: {
-                barLabel("More", "ellipsis.circle", on: false)
-            }
+            moreMenu
         }
+        .frame(maxWidth: 560)
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, 8)
         .padding(.top, 6)
-        .padding(.bottom, 2)
         .background(.bar)
+    }
+
+    private var moreMenu: some View {
+        Menu {
+            Section("Size: \(room.sizeName)") {
+                Button { room.act("bigger") } label: { Label("Bigger", systemImage: "plus.magnifyingglass") }
+                    .disabled(room.size >= room.sizes - 1)
+                Button { room.act("smaller") } label: { Label("Smaller", systemImage: "minus.magnifyingglass") }
+                    .disabled(room.size <= 0)
+            }
+            Section {
+                Toggle("Climb on Furniture", isOn: Binding(get: { room.perch }, set: { _ in room.act("perch") }))
+                Toggle("Show Perch Spots", isOn: Binding(get: { room.spots }, set: { _ in room.act("spots") }))
+            }
+            Section {
+                Button { room.act("reset") } label: { Label("Call the Cat Over", systemImage: "arrow.counterclockwise") }
+                if room.hidden {
+                    Button { room.act("show") } label: { Label("Show Nyan", systemImage: "eye") }
+                } else {
+                    Button { room.act("hide") } label: { Label("Hide Nyan", systemImage: "eye.slash") }
+                }
+                Button { showHelp = true } label: { Label("How to Play", systemImage: "questionmark.circle") }
+            }
+        } label: {
+            barLabel("More", "ellipsis.circle", on: false)
+        }
     }
 
     private func barButton(_ title: String, _ symbol: String, on: Bool = false, _ run: @escaping () -> Void) -> some View {
@@ -123,6 +107,44 @@ struct ContentView: View {
         .frame(maxWidth: .infinity, minHeight: 44)
         .foregroundStyle(on ? Color.red : Color.accentColor)
         .contentShape(Rectangle())
+    }
+}
+
+struct HelpView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section("Playing") {
+                    row("hand.tap", "Tap the cat", "Drops a fish. Five fish in ten seconds make it rounder.")
+                    row("hand.raised", "Touch and hold", "Pets the cat. Petting and feeding make it happier.")
+                    row("hand.draw", "Drag", "Carries the cat. Let go over furniture to set it there, or fling it to fly.")
+                    row("scope", "Laser", "Turn it on, then drag a finger around the room.")
+                    row("tennisball", "Yarn", "Gives it a ball to chase. Drag the yarn to throw it.")
+                }
+                Section("Its mood") {
+                    Text("The cat remembers how much you pet and feed it. Left alone for long, it gets lonely, then grumpy, and runs from your finger. Too round, and it squats until it slims down.")
+                        .font(.callout)
+                }
+            }
+            .navigationTitle("How to Play")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } }
+            }
+        }
+    }
+
+    private func row(_ symbol: String, _ title: String, _ detail: String) -> some View {
+        Label {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title).font(.headline)
+                Text(detail).font(.callout).foregroundStyle(.secondary)
+            }
+        } icon: {
+            Image(systemName: symbol).foregroundStyle(Color.accentColor)
+        }
     }
 }
 

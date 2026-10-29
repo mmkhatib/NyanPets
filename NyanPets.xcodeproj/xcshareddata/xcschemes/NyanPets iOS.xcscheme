@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7BD8AFD3A8F3A6D77A776C78"
+               BlueprintIdentifier = "3A6845F149D3B642DE93DFAA"
                BuildableName = "NyanPets.app"
                BlueprintName = "NyanPets iOS"
                ReferencedContainer = "container:NyanPets.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BD8AFD3A8F3A6D77A776C78"
+            BlueprintIdentifier = "3A6845F149D3B642DE93DFAA"
             BuildableName = "NyanPets.app"
             BlueprintName = "NyanPets iOS"
             ReferencedContainer = "container:NyanPets.xcodeproj">
@@ -53,7 +53,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BD8AFD3A8F3A6D77A776C78"
+            BlueprintIdentifier = "3A6845F149D3B642DE93DFAA"
             BuildableName = "NyanPets.app"
             BlueprintName = "NyanPets iOS"
             ReferencedContainer = "container:NyanPets.xcodeproj">
@@ -70,7 +70,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BD8AFD3A8F3A6D77A776C78"
+            BlueprintIdentifier = "3A6845F149D3B642DE93DFAA"
             BuildableName = "NyanPets.app"
             BlueprintName = "NyanPets iOS"
             ReferencedContainer = "container:NyanPets.xcodeproj">

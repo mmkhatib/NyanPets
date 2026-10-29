@@ -10,7 +10,7 @@ It comes in three forms, all running the same script, `nyanpets.user.js`:
 |---|---|
 | **Userscript** | In your browser, on the sites you choose (Tampermonkey). |
 | **Mac app** | On your desktop, above your windows. It walks along the Dock, perches on the top edges of other apps' windows, and rides them when you move them. Fling it off the side of a display and it flies onto the next one. |
-| **iOS app** | In a small browser for iPhone and iPad. It rides along on any website you open, and starts on a playground page built for it. |
+| **iPhone & iPad app** | In its own room: a window that follows the time of day, wall shelves, a cat tree, and a couch, all of which it climbs on. A badge shows its mood. |
 
 ## Build the apps
 
@@ -34,10 +34,10 @@ Open `NyanPets.xcodeproj` in Xcode 15 or later.
 | Everything else | right-click the cat, or the menu bar item | the bottom bar and its More menu |
 
 Five fish in ten seconds make it rounder; too round and it squats until it
-slims down. In the iOS browser, as in the userscript, it also reacts to the page:
-it types on its own laptop while you type, cheers when you press Approve, Ship
-it, or Merge, and startles at error alerts. (The Mac app sits above other apps
-and never sees their keystrokes or buttons.)
+slims down. Left alone for long, it gets lonely, then grumpy. In the
+userscript it also reacts to the page: it types on its own laptop while you
+type, cheers when you press Approve, Ship it, or Merge, and startles at error
+alerts.
 
 ## How it fits together
 
@@ -46,7 +46,7 @@ nyanpets.user.js          the cat itself, unchanged from the userscript
 apps/Shared/nyan-host.js     stands in for Tampermonkey inside the apps
 apps/Shared/NyanScripts.swift  injects both into a WKWebView, stores the cat's state
 apps/macOS/                  transparent click-through overlay + menu bar item
-apps/iOS/                    SwiftUI browser + playground page
+apps/iOS/                    SwiftUI app + the cat's room (room.html)
 tools/                       regenerate the Xcode project and the app icons
 ```
 
@@ -63,7 +63,8 @@ host:
   `enter` / `leave` / `arrive` calls move the cat between displays.
 - **iOS.** Finger positions are replayed as mouse moves, so the cat sees the
   finger like a cursor. A finger that rests on the cat cancels the pending
-  drag, so it pets instead of dropping a fish when lifted.
+  drag, so it pets instead of dropping a fish when lifted. The room marks its
+  furniture with `data-nyan-perch`, so even thin shelves are always perches.
 
 To update the cat, replace `nyanpets.user.js` with a newer version; both
 apps pick it up on the next build.

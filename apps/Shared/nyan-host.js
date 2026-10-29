@@ -38,16 +38,24 @@
   // ---------- control API for the app ----------
   const api = () => window.__nyanTest && window.__nyanTest.api;
   const state = { laser: false };
-  function report() {
+  // Sends the cat's state when it changed (or always, with force), so the
+  // app's controls and mood display follow the cat.
+  let lastReport = '';
+  function report(force) {
     const a = api();
     if (!a) return;
     const saved = GM_getValue('nyan.v1', {}) || {};
-    post({
+    const msg = {
       type: 'state', laser: state.laser, spots: !!a.spotsOn, size: a.size, sizeName: a.sizeName,
       sizes: a.sizeNames.length, perch: saved.perch !== false, hidden: !!saved.hidden,
-      sleeping: a.cat.state === 'sleep',
-    });
+      sleeping: a.cat.state === 'sleep', mood: Math.round(a.aff * 100) / 100, chub: a.chub,
+    };
+    const key = JSON.stringify(msg);
+    if (!force && key === lastReport) return;
+    lastReport = key;
+    post(msg);
   }
+  setInterval(() => { if (wrapActs()) report(false); }, 500);
   // Wraps every action once the cat is mounted, so the app's menu stays in
   // step with the cat's own right-click menu (the laser has no getter).
   let wrapped = false;
@@ -60,11 +68,11 @@
       a.act[name] = function () {
         const r = run.apply(this, arguments);
         if (name === 'laser') { state.laser = !state.laser; laserTouch(); }
-        setTimeout(report, 0);
+        setTimeout(() => report(true), 0);
         return r;
       };
     }
-    report();
+    report(true);
     return true;
   }
   window.__nyanApp = {
@@ -74,7 +82,7 @@
       if (a && typeof a.act[name] === 'function') a.act[name]();
       return !!a;
     },
-    report() { wrapActs(); report(); return true; },
+    report() { wrapActs(); report(true); return true; },
   };
 
   // ---------- touch (iOS) ----------
@@ -143,6 +151,13 @@
     waitHost();
   }
 
+  // ---------- perches a page marks itself ----------
+  // A page built for the cat (the iOS room) marks its furniture with
+  // data-nyan-perch, so a thin shelf is never missed between the points the
+  // perch scan samples. On the Mac the windows of other apps are added too.
+  let macEdges = () => [];
+  window.__nyanExtraSurfaces = () => macEdges().concat([...document.querySelectorAll('[data-nyan-perch]')]);
+
   // ---------- Mac overlay ----------
   if (MAC) {
     // Mouse position from the app. The overlay lets clicks through to the apps
@@ -175,13 +190,8 @@
       const key = JSON.stringify(out);
       if (key !== lastRegions) { lastRegions = key; post(Object.assign({ type: 'regions' }, out)); }
     }
-    let wasSleeping = null;
     function loop() {
-      if (wrapActs()) {
-        regions();
-        const sleeping = api().cat.state === 'sleep';
-        if (sleeping !== wasSleeping) { wasSleeping = sleeping; report(); }
-      }
+      if (wrapActs()) regions();
       requestAnimationFrame(loop);
     }
     requestAnimationFrame(loop);
@@ -228,7 +238,7 @@
       }
       return true;
     };
-    window.__nyanExtraSurfaces = () => edges;
+    macEdges = () => edges;
     window.__nyanOnGrab = () => post({ type: 'grab' });
 
     // Other displays. The app sends, for each side, the spans of the overlay's

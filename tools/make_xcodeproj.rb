@@ -30,8 +30,8 @@ mac_files = %w[NyanPetsMacApp.swift OverlayController.swift].map { |f| mac.new_f
 mac_html = mac.new_file('overlay.html')
 mac.new_file('Info.plist')
 
-ios_files = %w[NyanPetsApp.swift PetBrowser.swift].map { |f| ios.new_file(f) }
-ios_html = ios.new_file('playground.html')
+ios_files = %w[NyanPetsApp.swift PetRoom.swift].map { |f| ios.new_file(f) }
+ios_html = ios.new_file('room.html')
 ios.new_file('Info.plist')
 
 COMMON = {
