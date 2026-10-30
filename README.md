@@ -14,8 +14,11 @@ mood follows how much you pet and feed it.
 
 Open `NyAssistant.xcodeproj` in Xcode.
 
-- **NyAssistant macOS** (macOS 13+): choose the scheme and press Run. The app
-  has no Dock icon; look for the cat in the menu bar.
+- **NyAssistant macOS** (macOS 13+): run `tools/install_mac.sh` to build it,
+  install it in `/Applications`, and start it (run it again after changes).
+  From Xcode, choose the scheme and press Run; that copy runs from Xcode's
+  build folder and is not installed. The app has no Dock icon; look for the
+  cat in the menu bar, and use Open at Login there to keep it running.
 - **NyAssistant iOS** (iOS 16+, iPhone and iPad): choose the scheme and a
   simulator or your device, and press Run. On a device, turn on Developer
   Mode the first time.
