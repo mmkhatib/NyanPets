@@ -1,5 +1,5 @@
-// NyanPets app host. Runs at document start, in the same JavaScript world
-// as nyanpets.user.js, and stands in for Tampermonkey:
+// NyAssistant app host. Runs at document start, in the same JavaScript world
+// as nyassistant.user.js, and stands in for Tampermonkey:
 //
 //   - GM_getValue / GM_setValue, backed by the app's own storage, so the cat's
 //     size, roundness, affection, and position follow it from page to page.
@@ -27,6 +27,22 @@
     post({ type: 'set', key, json: JSON.stringify(value) });
   };
   window.GM_info = { script: { version: init.version } };
+
+  // Console output goes to the app's log (on the Mac, ~/Library/Logs/NyAssistant.log).
+  for (const level of ['log', 'info', 'warn', 'error']) {
+    const orig = console[level];
+    console[level] = function () {
+      try {
+        const text = [...arguments].map((a) => (typeof a === 'string' ? a : JSON.stringify(a))).join(' ');
+        post({ type: 'log', level, text: text.slice(0, 2000) });
+      } catch (e) { /* unserializable: the page's console still has it */ }
+      return orig.apply(this, arguments);
+    };
+  }
+  window.addEventListener('error', (e) => post({ type: 'log', level: 'error', text: String(e.message) + ' @' + e.lineno }));
+  const logVisibility = () => post({ type: 'log', level: 'info', text: '[host] page ' + document.visibilityState });
+  document.addEventListener('visibilitychange', logVisibility);
+  window.addEventListener('load', logVisibility);
   window.__nyanHost = init.platform;
   window.__nyanTest = {};
 
@@ -178,7 +194,8 @@
       const shown = a.hitShown();
       const box = a.hitBox();
       const P = box.w / 36;
-      const out = { all: shown && (a.menuOpen || a.cat.state === 'held'), boxes: [] };
+      const held = shown && a.cat.state === 'held';
+      const out = { all: shown && (a.menuOpen || held), held, boxes: [] };
       if (shown) {
         out.boxes.push([Math.round(a.cat.x), Math.round(a.cat.y), box.w, box.h]);
         const y = a.yarn;
@@ -199,7 +216,9 @@
     // Other apps' windows, as boxes the cat can stand on. The app sends them
     // front to back in overlay coordinates. Each window is a box (so a window
     // in front covers the one behind for the perch scan) holding a thin strip
-    // along its top edge: the strip is the perch.
+    // along its top edge: the strip is the perch. With Accessibility allowed,
+    // a window also lists `perches`, [x, y, w, h] relative to the window: the
+    // panels, lists, and buttons inside it, each another strip in the box.
     const layer = document.createElement('div');
     Object.assign(layer.style, { position: 'fixed', inset: '0', pointerEvents: 'none', zIndex: '1' });
     const wins = new Map();
@@ -225,13 +244,30 @@
           });
           box.append(edge);
           layer.append(box);
-          rec = { box, edge };
+          rec = { box, edge, inner: [], key: '' };
           wins.set(w.id, rec);
         }
         const s = rec.box.style;
         s.left = w.x + 'px'; s.top = w.y + 'px'; s.width = w.w + 'px'; s.height = w.h + 'px';
         s.zIndex = String(n - i); // frontmost on top
         edges.push(rec.edge);
+        const perches = w.perches || [];
+        const key = JSON.stringify(perches);
+        if (key !== rec.key) {
+          rec.key = key;
+          rec.inner.forEach((el) => el.remove());
+          rec.inner = perches.map(([x, y, pw]) => {
+            const el = document.createElement('div');
+            el.className = 'ne';
+            Object.assign(el.style, {
+              position: 'absolute', left: x + 'px', top: y + 'px', width: pw + 'px', height: '3px',
+              pointerEvents: 'auto', background: 'transparent',
+            });
+            rec.box.append(el);
+            return el;
+          });
+        }
+        edges.push(...rec.inner);
       });
       for (const [id, rec] of wins) {
         if (!keep.has(id)) { rec.box.remove(); wins.delete(id); } // a closed window: the cat on it falls
@@ -240,6 +276,49 @@
     };
     macEdges = () => edges;
     window.__nyanOnGrab = () => post({ type: 'grab' });
+
+    // Typing in other apps. The cat types along while a text field has focus,
+    // and keeps its body off that field. The page stands in a read-only
+    // textarea for the real field: the app moves it over the field (or off
+    // screen when it cannot tell where the field is) and focuses it for a few
+    // seconds after each key.
+    const field = document.createElement('textarea');
+    field.readOnly = true;
+    field.tabIndex = -1;
+    field.setAttribute('aria-hidden', 'true');
+    Object.assign(field.style, {
+      position: 'fixed', left: '-60px', top: '-60px', width: '20px', height: '20px', opacity: '0',
+      pointerEvents: 'none', resize: 'none', border: '0', padding: '0', zIndex: '0',
+    });
+    let fieldKind = 'unknown'; // 'field', 'unknown', or 'none' (focus is not in a text field)
+    let blurT = 0;
+    window.__nyanFocus = (r) => {
+      if (r === 'none') { fieldKind = 'none'; field.blur(); return true; }
+      fieldKind = r ? 'field' : 'unknown';
+      const [x, y, w, h] = r || [-60, -60, 20, 20];
+      Object.assign(field.style, { left: x + 'px', top: y + 'px', width: Math.max(1, w) + 'px', height: Math.max(1, h) + 'px' });
+      return true;
+    };
+    window.__nyanKey = (ctrl, cmd, alt, esc) => {
+      if (fieldKind !== 'none') {
+        if (!field.isConnected && document.body) document.body.appendChild(field);
+        if (document.activeElement !== field) field.focus({ preventScroll: true });
+        clearTimeout(blurT);
+        blurT = setTimeout(() => field.blur(), 4000);
+      }
+      const target = document.activeElement === field ? field : document;
+      target.dispatchEvent(new KeyboardEvent('keydown', {
+        key: esc ? 'Escape' : 'x', ctrlKey: ctrl, metaKey: cmd, altKey: alt, bubbles: true, composed: true,
+      }));
+      return true;
+    };
+    // A click in another app: the cat's menu closes, as on a click outside it.
+    window.__nyanPress = (x, y) => {
+      const a = api();
+      if (!a || !a.menuOpen || !document.body) return false;
+      document.body.dispatchEvent(new PointerEvent('pointerdown', { clientX: x, clientY: y, bubbles: true, composed: true }));
+      return true;
+    };
 
     // Other displays. The app sends, for each side, the spans of the overlay's
     // height that have a display beyond that edge.

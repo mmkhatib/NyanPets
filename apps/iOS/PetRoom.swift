@@ -19,6 +19,8 @@ final class PetRoom: NSObject, ObservableObject, WKNavigationDelegate, WKScriptM
     @Published var sizeName = "Normal"
     @Published var mood = 0.5   // affection, 0.25 to 1
     @Published var chub = 0     // roundness, 0 to 5
+    /// False until the room has drawn, so launch shows the wall color, not a blank page.
+    @Published var ready = false
 
     private var firstLoad = true
 
@@ -94,6 +96,7 @@ final class PetRoom: NSObject, ObservableObject, WKNavigationDelegate, WKScriptM
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        ready = true
         webView.nyanEval("window.__nyanApp && window.__nyanApp.report()")
         // A first visit on an iPad: the larger screen suits a larger cat.
         if firstLoad, UIDevice.current.userInterfaceIdiom == .pad,

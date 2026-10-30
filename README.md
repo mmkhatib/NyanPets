@@ -1,26 +1,44 @@
-# NyanPets
+# NyAssistant
 
-NyanPets is a Nyan Cat pet. It walks along with a rainbow trail, perches on
-things, eats the fish you give it, naps, chases yarn and a laser pointer, and
-can be petted, carried, and flung. Its mood follows how much you pet and feed it.
-
-It comes in three forms, all running the same script, `nyanpets.user.js`:
+NyAssistant is a Nyan Cat pet for your Mac, iPhone, and iPad. It walks along
+with a rainbow trail, perches on things, eats the fish you give it, naps,
+chases yarn and a laser pointer, and can be petted, carried, and flung. Its
+mood follows how much you pet and feed it.
 
 | | Where the cat lives |
 |---|---|
-| **Userscript** | In your browser, on the sites you choose (Tampermonkey). |
-| **Mac app** | On your desktop, above your windows. It walks along the Dock, perches on the top edges of other apps' windows, and rides them when you move them. Fling it off the side of a display and it flies onto the next one. |
-| **iPhone & iPad app** | In its own room: a window that follows the time of day, wall shelves, a cat tree, and a couch, all of which it climbs on. A badge shows its mood. |
+| **Mac** | On your desktop, above your windows. It walks along the Dock, perches on the tops of other apps' windows and on the panels, lists, and buttons inside them, and rides windows when you move them. It types on its own laptop while you type, and keeps off the text field you are typing in. Fling or drag it off the side of a display and it lands on the next one; leave the pointer on another display and it follows. |
+| **iPhone & iPad** | In its own room: a window that follows the time of day, wall shelves, a cat tree, and a couch, all of which it climbs on. A badge shows its mood. On iPad, put it in Split View, Slide Over, or a Stage Manager window next to your work. |
 
-## Build the apps
+## Build
 
-Open `NyanPets.xcodeproj` in Xcode 15 or later.
+Open `NyAssistant.xcodeproj` in Xcode.
 
-- **NyanPets macOS** (macOS 13+): choose the scheme and press Run. It is
-  signed to run locally, so no developer account is needed. The app has no
-  Dock icon; look for the cat in the menu bar.
-- **NyanPets iOS** (iOS 16+): choose the scheme and an iPhone simulator, and
-  press Run. To run on a device, pick your team under Signing & Capabilities.
+- **NyAssistant macOS** (macOS 13+): choose the scheme and press Run. The app
+  has no Dock icon; look for the cat in the menu bar.
+- **NyAssistant iOS** (iOS 16+, iPhone and iPad): choose the scheme and a
+  simulator or your device, and press Run. On a device, turn on Developer
+  Mode the first time.
+
+Both apps are signed with the Apple Development certificate of team
+`W9S6NGSR8A`. To use another team, regenerate the project with
+`NYAN_TEAM=<team id> ruby tools/make_xcodeproj.rb`. The Mac app needs a
+signature that stays the same from build to build, because macOS ties its
+permissions to it; with an ad hoc signature every rebuild would lose them.
+
+### Mac permissions
+
+The cat works without any, walking on the Dock and the tops of windows. A
+setup window at first launch asks for two more, and the menu bar shows each
+one's status:
+
+| Permission | What it adds |
+|---|---|
+| Accessibility | Perches inside other apps' windows (panels, lists, editors, buttons, cards in web pages), and keeping off the text field you are typing in. It reads only where things are, never what they say. |
+| Input Monitoring | Typing along. The key tap is listen-only and learns only that a key was pressed and whether Control, Command, Option, or Escape was involved. macOS sends it nothing while a password field is focused. |
+
+Input Monitoring can need a restart before it takes effect; the setup window
+offers one.
 
 ## Playing with the cat
 
@@ -34,45 +52,62 @@ Open `NyanPets.xcodeproj` in Xcode 15 or later.
 | Everything else | right-click the cat, or the menu bar item | the bottom bar and its More menu |
 
 Five fish in ten seconds make it rounder; too round and it squats until it
-slims down. Left alone for long, it gets lonely, then grumpy. In the
-userscript it also reacts to the page: it types on its own laptop while you
-type, cheers when you press Approve, Ship it, or Merge, and startles at error
-alerts.
+slims down. Left alone for long, it gets lonely, then grumpy.
+
+The Mac menu also has **Perch Inside Apps**, **Type Along**, and **Follow the
+Pointer to Other Displays** (all on by default), **Bring to This Display**
+when you have more than one, and **Open Log** (`~/Library/Logs/NyAssistant.log`,
+the page's console, started fresh past 1 MB).
 
 ## How it fits together
 
 ```
-nyanpets.user.js          the cat itself, unchanged from the userscript
-apps/Shared/nyan-host.js     stands in for Tampermonkey inside the apps
-apps/Shared/NyanScripts.swift  injects both into a WKWebView, stores the cat's state
-apps/macOS/                  transparent click-through overlay + menu bar item
-apps/iOS/                    SwiftUI app + the cat's room (room.html)
-tools/                       regenerate the Xcode project and the app icons
+nyassistant.user.js           the cat: every behavior, drawn on a canvas
+apps/Shared/nyan-host.js      stands in for Tampermonkey, and turns desktop facts into page events
+apps/Shared/NyanScripts.swift injects both into a WKWebView, stores the cat's state
+apps/macOS/                   transparent overlay, menu bar item, window and AX perches, key tap, setup window
+apps/iOS/                     SwiftUI app + the cat's room (room.html)
+tests/host-test.swift         drives the Mac page side in a real WKWebView
+tools/                        regenerate the Xcode project and the app icons
 ```
 
-The apps load the userscript as is. `nyan-host.js` runs first, in the same
-isolated JavaScript world, and provides `GM_getValue` / `GM_setValue` backed by
-the app's storage, plus the hooks the userscript already has for a desktop
-host:
+The cat has no app logic of its own to port: each app runs the same script on
+a web page and feeds it what that platform knows. `nyan-host.js` runs first,
+in the same isolated JavaScript world, and provides `GM_getValue` /
+`GM_setValue` backed by the app's storage, and the hooks the script looks for
+(`__nyanExtraSurfaces`, `__nyanEdgeExit`, `__nyanOnGrab`).
 
-- **Mac.** The overlay window passes clicks through to the apps below except
-  over the cat and its yarn (and everywhere while its menu is open or it is
-  being carried). The app replays the mouse position into the page, so hover
-  petting and the laser work, and it hands the page the frames of other apps'
-  windows (`__nyanExtraSurfaces`) to perch on. `__nyanEdgeExit` and the
-  `enter` / `leave` / `arrive` calls move the cat between displays.
-- **iOS.** Finger positions are replayed as mouse moves, so the cat sees the
-  finger like a cursor. A finger that rests on the cat cancels the pending
-  drag, so it pets instead of dropping a fish when lifted. The room marks its
-  furniture with `data-nyan-perch`, so even thin shelves are always perches.
+On the Mac, the overlay lets clicks through except over the cat and its yarn
+(and everywhere while its menu is open or it is being carried), and turns
+each desktop fact into something the script already handles:
 
-To update the cat, replace `nyanpets.user.js` with a newer version; both
-apps pick it up on the next build.
+| Desktop fact | What the page sees |
+|---|---|
+| Another app's window (CoreGraphics, 20 times a second) | An invisible box in window order, with a strip along its top edge to stand on |
+| A panel, list, editor, or button inside it (Accessibility, front window plus two more every 1.5 s, every window when you pick the cat up) | Another strip inside that window's box |
+| The pointer | `mousemove` events |
+| A key pressed in any app | A `keydown` on a hidden, read-only textarea that has focus for 4 seconds |
+| The focused text field (Accessibility) | That textarea, moved over the real field |
+| A click in another app | A `pointerdown`, so the cat's menu closes |
 
-After adding or removing source files, regenerate the project:
+On iOS, finger positions are replayed as mouse moves, so the cat sees the
+finger like a cursor, and a finger that rests on the cat pets it instead of
+dropping a fish. The room marks its furniture with `data-nyan-perch`, so even
+thin shelves are always perches.
+
+## Changing things
+
+To update the cat, replace `nyassistant.user.js`; both apps bundle it on the
+next build. After adding or removing source files, regenerate the project:
 
 ```sh
 gem install xcodeproj
 ruby tools/make_xcodeproj.rb
 python3 tools/make_icons.py   # only if you change the icon art
+```
+
+Test the Mac page side (no permissions needed):
+
+```sh
+mkdir -p build && swiftc -O tests/host-test.swift -o build/host-test && build/host-test .
 ```

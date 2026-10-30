@@ -1,10 +1,8 @@
 // ==UserScript==
-// @name         NyanPets
-// @namespace    nyanpets
+// @name         NyAssistant
+// @namespace    overlord.nyan
 // @version      3.10.0
-// @updateURL    https://raw.githubusercontent.com/mmkhatib/NyanPets/main/nyanpets.user.js
-// @downloadURL  https://raw.githubusercontent.com/mmkhatib/NyanPets/main/nyanpets.user.js
-// @description  NyanPets is a Nyan Cat browser pet for the tools you work in. It walks along the bottom of the window with a rainbow trail, hops onto cards, panels, headings, and paragraphs, eats the fish you give it, naps, chases yarn and a laser pointer, and can be petted, picked up, dropped, and flung. It remembers how much you pet and feed it, and its mood follows. It cheers when you click Approve, Ship it, or Merge, startles at error alerts, and runs only in the tab you are looking at, slipping into a portal when you leave. Right-click the cat for its menu. By default it runs on github.com, gitlab.com, bitbucket.org, atlassian.net, and linear.app. Use Choose sites in its menu to run it on every site or only on the sites you pick.
+// @description  NyAssistant is a Nyan Cat browser pet for the tools you work in. It walks along the bottom of the window with a rainbow trail, hops onto cards, panels, headings, and paragraphs, eats the fish you give it, naps, chases yarn and a laser pointer, and can be petted, picked up, dropped, and flung. It remembers how much you pet and feed it, and its mood follows. It cheers when you click Approve, Ship it, or Merge, startles at error alerts, and runs only in the tab you are looking at, slipping into a portal when you leave. Right-click the cat for its menu. By default it runs on github.com, gitlab.com, bitbucket.org, atlassian.net, and linear.app. Use Choose sites in its menu to run it on every site or only on the sites you pick.
 // @author       overlord
 // @match        *://*/*
 // @grant        GM_getValue
@@ -142,8 +140,8 @@
     });
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-modal', 'true');
-    box.setAttribute('aria-label', 'Where NyanPets runs');
-    box.append(el('div', { fontSize: '15px', fontWeight: '700', marginBottom: '10px' }, 'Where NyanPets runs'));
+    box.setAttribute('aria-label', 'Where NyAssistant runs');
+    box.append(el('div', { fontSize: '15px', fontWeight: '700', marginBottom: '10px' }, 'Where NyAssistant runs'));
 
     const radios = {};
     for (const [val, text] of [['all', 'On every site'], ['list', 'Only on these sites']]) {
@@ -254,7 +252,7 @@
   }
 
   if (!DESKTOP && typeof GM_registerMenuCommand === 'function') {
-    GM_registerMenuCommand('Choose sites for NyanPets…', openSitesModal);
+    GM_registerMenuCommand('Choose sites for NyAssistant…', openSitesModal);
   }
   if (typeof GM_addValueChangeListener === 'function') {
     // A change saved in another tab starts or stops the cat here too.

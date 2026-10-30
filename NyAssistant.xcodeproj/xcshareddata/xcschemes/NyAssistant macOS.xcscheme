@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "413C73D3EBEA474FA18E6F44"
-               BuildableName = "NyanPets.app"
-               BlueprintName = "NyanPets macOS"
-               ReferencedContainer = "container:NyanPets.xcodeproj">
+               BlueprintIdentifier = "2E69F197C5B3E507D08DB6FC"
+               BuildableName = "NyAssistant.app"
+               BlueprintName = "NyAssistant macOS"
+               ReferencedContainer = "container:NyAssistant.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,10 +30,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "413C73D3EBEA474FA18E6F44"
-            BuildableName = "NyanPets.app"
-            BlueprintName = "NyanPets macOS"
-            ReferencedContainer = "container:NyanPets.xcodeproj">
+            BlueprintIdentifier = "2E69F197C5B3E507D08DB6FC"
+            BuildableName = "NyAssistant.app"
+            BlueprintName = "NyAssistant macOS"
+            ReferencedContainer = "container:NyAssistant.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -53,10 +53,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "413C73D3EBEA474FA18E6F44"
-            BuildableName = "NyanPets.app"
-            BlueprintName = "NyanPets macOS"
-            ReferencedContainer = "container:NyanPets.xcodeproj">
+            BlueprintIdentifier = "2E69F197C5B3E507D08DB6FC"
+            BuildableName = "NyAssistant.app"
+            BlueprintName = "NyAssistant macOS"
+            ReferencedContainer = "container:NyAssistant.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -70,10 +70,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "413C73D3EBEA474FA18E6F44"
-            BuildableName = "NyanPets.app"
-            BlueprintName = "NyanPets macOS"
-            ReferencedContainer = "container:NyanPets.xcodeproj">
+            BlueprintIdentifier = "2E69F197C5B3E507D08DB6FC"
+            BuildableName = "NyAssistant.app"
+            BlueprintName = "NyAssistant macOS"
+            ReferencedContainer = "container:NyAssistant.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

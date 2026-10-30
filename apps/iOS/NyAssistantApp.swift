@@ -1,10 +1,10 @@
 import SwiftUI
 import WebKit
 
-/// NyanPets for iPhone and iPad: the cat lives in its own room, with shelves,
+/// NyAssistant for iPhone and iPad: the cat lives in its own room, with shelves,
 /// a cat tree, and a couch to perch on.
 @main
-struct NyanPetsApp: App {
+struct NyAssistantApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -19,11 +19,14 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             WebViewHost(webView: room.webView)
+                .opacity(room.ready ? 1 : 0)
+                .animation(.easeOut(duration: 0.3), value: room.ready)
+                .background(Color("LaunchBackground"))
                 .ignoresSafeArea(.container, edges: [.top, .horizontal])
                 .overlay(alignment: .topLeading) { moodBadge }
             controls
         }
-        .background(Color(.systemBackground))
+        .background(Color("LaunchBackground").ignoresSafeArea())
         .sheet(isPresented: $showHelp) { HelpView() }
     }
 

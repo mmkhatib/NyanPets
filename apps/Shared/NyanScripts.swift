@@ -49,12 +49,12 @@ final class NyanStore {
 enum NyanScripts {
     /// A JavaScript world of its own, so pages cannot see or call the cat's
     /// API and the cat does not see the page's globals. Both share the DOM.
-    static let world = WKContentWorld.world(name: "NyanPets")
+    static let world = WKContentWorld.world(name: "NyAssistant")
 
     /// Name of the message handler the host script posts to.
     static let handlerName = "nyan"
 
-    static let userScriptSource: String = resource("nyanpets.user", "js")
+    static let userScriptSource: String = resource("nyassistant.user", "js")
     static let hostSource: String = resource("nyan-host", "js")
 
     /// The userscript's own `@version`.
