@@ -143,6 +143,70 @@ if opened == true {
     check("Escape closes menu", js("return window.__nyanTest.api.menuOpen") as? Bool == false)
 }
 
+// Holiday themes.
+let cal = js("""
+  const c = window.__nyanTest.api.calendarTheme;
+  const d = (y, m, day) => c(new Date(y, m - 1, day));
+  return [d(2026, 10, 1), d(2026, 10, 31), d(2026, 11, 1), d(2026, 11, 26), d(2026, 11, 29), d(2026, 11, 30),
+          d(2026, 12, 26), d(2026, 12, 27), d(2027, 1, 7), d(2027, 1, 8), d(2027, 6, 1), d(2025, 11, 30), d(2025, 12, 1)].map(String)
+""") as? [String] ?? []
+check("calendar picks the holiday", cal == ["halloween", "halloween", "thanksgiving", "thanksgiving", "thanksgiving", "christmas",
+                                           "christmas", "newyear", "newyear", "null", "null", "thanksgiving", "christmas"], cal)
+let setOK = js("""
+  const ok = window.__nyanApp.theme('christmas') && window.__nyanApp.costume('christmas', 'elf');
+  const a = window.__nyanTest.api;
+  return ok && a.holiday === 'christmas' && a.costumeKey === 'elf' &&
+    JSON.stringify(GM_getValue('nyan.costume')) === '{"christmas":"elf"}' && GM_getValue('nyan.theme') === 'christmas'
+""") as? Bool
+check("theme and costume set and saved", setOK == true)
+check("bad theme refused", js("return window.__nyanApp.theme('easter')") as? Bool == false)
+let pickOther = js("""
+  window.__nyanApp.costume('halloween', 'vampire');
+  const a = window.__nyanTest.api;
+  return [a.theme, a.holiday, a.costumeKey]
+""") as? [String] ?? []
+check("costume for another holiday puts it on", pickOther == ["halloween", "halloween", "vampire"], pickOther)
+let surprise = js("""
+  const a = window.__nyanTest.api;
+  a.setCostume('newyear', 'surprise');
+  const seen = new Set();
+  const real = Date;
+  for (let i = 0; i < 6; i++) {
+    const t = new real(2027, 0, 1 + i, 12).getTime();
+    window.Date = class extends real { constructor(...v) { super(...(v.length ? v : [t])); } static now() { return t; } };
+    a.dress(); seen.add(a.costumeKey);
+  }
+  window.Date = real;
+  a.dress();
+  return seen.size
+""") as? Int
+check("surprise changes by day", surprise == 3, surprise)
+let off = js("""
+  const a = window.__nyanTest.api; a.setTheme('none');
+  return a.holiday === null && a.costumeKey === null
+""") as? Bool
+check("theme off wears nothing", off == true)
+let drawn = js("""
+  const a = window.__nyanTest.api;
+  const errs = [];
+  const orig = console.error;
+  console.error = (...v) => errs.push(v.join(' '));
+  for (const [h, v] of Object.entries(a.HOLIDAYS)) for (const c of Object.keys(v.costumes)) for (const chub of [0, 3, 5]) {
+    a.setCostume(h, c); a.chub = chub; a.chubAt = Date.now();
+    for (const s of ['idle', 'type']) { a.setState(s, 5); await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); }
+  }
+  console.error = orig;
+  a.chub = 0;
+  return errs.length
+""") as? Int
+check("every costume draws without errors", drawn == 0, drawn)
+let report = js("""
+  window.__nyanApp.costume('thanksgiving', 'turkey');
+  return new Promise((r) => setTimeout(() => r(window.__nyanTest.api.holidayInfo()), 50))
+""") as? [String: Any]
+let hols = (report?["holidays"] as? [[String: Any]])?.compactMap { $0["key"] as? String } ?? []
+check("holiday info lists every holiday", hols == ["halloween", "thanksgiving", "christmas", "newyear"], hols)
+
 check("console reaches app log", h.logs.contains { $0.contains("mounted") }, h.logs.first)
 print(fails == 0 ? "ALL PASS" : "\(fails) FAILED")
 exit(fails == 0 ? 0 : 1)

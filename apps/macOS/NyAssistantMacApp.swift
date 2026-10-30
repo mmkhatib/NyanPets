@@ -61,6 +61,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.addItem(note("Size: \(s.sizeName)"))
         menu.addItem(item("Bigger", "bigger", enabled: s.size < s.sizes - 1))
         menu.addItem(item("Smaller", "smaller", enabled: s.size > 0))
+        menu.addItem(.separator())
+        addHolidayMenus(to: menu, s.holidays)
         if NSScreen.screens.count > 1 {
             menu.addItem(.separator())
             let bring = NSMenuItem(title: "Bring to This Display", action: #selector(bringHere(_:)), keyEquivalent: "")
@@ -90,6 +92,51 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         log.target = self
         menu.addItem(log)
         menu.addItem(NSMenuItem(title: "Quit NyAssistant", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+    }
+
+    /// Theme and Costume submenus. Picking a costume for a holiday that is
+    /// not on puts that holiday on.
+    private func addHolidayMenus(to menu: NSMenu, _ info: HolidayInfo) {
+        guard !info.themes.isEmpty else { return }
+        let themes = NSMenu()
+        for t in info.themes {
+            let it = NSMenuItem(title: t.key == "auto" ? "\(t.name) (by Date)" : t.name, action: #selector(pickTheme(_:)), keyEquivalent: "")
+            it.target = self
+            it.representedObject = t.key
+            it.state = t.key == info.theme ? .on : .off
+            themes.addItem(it)
+            if t.key == "none" { themes.addItem(.separator()) }
+        }
+        let themeItem = NSMenuItem(title: "Theme: \(info.themeTitle)", action: nil, keyEquivalent: "")
+        themeItem.submenu = themes
+        menu.addItem(themeItem)
+
+        let costumes = NSMenu()
+        for (i, h) in info.holidays.enumerated() {
+            if i > 0 { costumes.addItem(.separator()) }
+            costumes.addItem(note(h.name))
+            for c in [HolidayInfo.Choice(key: "surprise", name: "Surprise Me")] + h.costumes {
+                let it = NSMenuItem(title: c.name, action: #selector(pickCostume(_:)), keyEquivalent: "")
+                it.target = self
+                it.representedObject = [h.key, c.key]
+                it.state = h.pick == c.key ? .on : .off
+                it.indentationLevel = 1
+                costumes.addItem(it)
+            }
+        }
+        let costumeItem = NSMenuItem(title: "Costume: \(info.costumeName ?? "None")", action: nil, keyEquivalent: "")
+        costumeItem.submenu = costumes
+        menu.addItem(costumeItem)
+    }
+
+    @objc private func pickTheme(_ sender: NSMenuItem) {
+        guard let t = sender.representedObject as? String else { return }
+        overlay.setTheme(t)
+    }
+
+    @objc private func pickCostume(_ sender: NSMenuItem) {
+        guard let pair = sender.representedObject as? [String], pair.count == 2 else { return }
+        overlay.setCostume(pair[0], pair[1])
     }
 
     private func note(_ title: String) -> NSMenuItem {

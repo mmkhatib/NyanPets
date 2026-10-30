@@ -79,6 +79,7 @@ struct ContentView: View {
                 Button { room.act("smaller") } label: { Label("Smaller", systemImage: "minus.magnifyingglass") }
                     .disabled(room.size <= 0)
             }
+            holidayMenus
             Section {
                 Toggle("Climb on Furniture", isOn: Binding(get: { room.perch }, set: { _ in room.act("perch") }))
                 Toggle("Show Perch Spots", isOn: Binding(get: { room.spots }, set: { _ in room.act("spots") }))
@@ -94,6 +95,35 @@ struct ContentView: View {
             }
         } label: {
             barLabel("More", "ellipsis.circle", on: false)
+        }
+    }
+
+    /// Theme and Costume submenus, built from what the cat reports.
+    @ViewBuilder private var holidayMenus: some View {
+        let info = room.holidays
+        if !info.themes.isEmpty {
+            Section {
+                Menu {
+                    Picker("Theme", selection: Binding(get: { info.theme }, set: { room.setTheme($0) })) {
+                        ForEach(info.themes, id: \.key) { t in
+                            Text(t.key == "auto" ? "\(t.name) (by Date)" : t.name).tag(t.key)
+                        }
+                    }
+                } label: {
+                    Label("Theme: \(info.themeTitle)", systemImage: "calendar")
+                }
+                Menu {
+                    ForEach(info.holidays, id: \.key) { h in
+                        Picker(h.name, selection: Binding(get: { h.pick }, set: { room.setCostume(h.key, $0) })) {
+                            Text("Surprise Me").tag("surprise")
+                            ForEach(h.costumes, id: \.key) { c in Text(c.name).tag(c.key) }
+                        }
+                        .pickerStyle(.inline)
+                    }
+                } label: {
+                    Label("Costume: \(info.costumeName ?? "None")", systemImage: "theatermasks")
+                }
+            }
         }
     }
 

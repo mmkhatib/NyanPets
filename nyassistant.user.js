@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NyAssistant
 // @namespace    overlord.nyan
-// @version      3.10.0
+// @version      4.0.0
 // @description  NyAssistant is a Nyan Cat browser pet for the tools you work in. It walks along the bottom of the window with a rainbow trail, hops onto cards, panels, headings, and paragraphs, eats the fish you give it, naps, chases yarn and a laser pointer, and can be petted, picked up, dropped, and flung. It remembers how much you pet and feed it, and its mood follows. It cheers when you click Approve, Ship it, or Merge, startles at error alerts, and runs only in the tab you are looking at, slipping into a portal when you leave. Right-click the cat for its menu. By default it runs on github.com, gitlab.com, bitbucket.org, atlassian.net, and linear.app. Use Choose sites in its menu to run it on every site or only on the sites you pick.
 // @author       overlord
 // @match        *://*/*
@@ -411,6 +411,414 @@
         if (hasGM) GM_setValue(STORE_KEY, v);
         else localStorage.setItem(STORE_KEY, JSON.stringify(v));
       } catch (e) { /* storage full or blocked; the cat just forgets */ }
+    }
+
+    // ---------- holidays ----------
+    // A theme dresses the cat for a holiday: a costume, a trail in the
+    // holiday's colors with little icons drifting off it, and its own word
+    // when flung. "Auto" follows the calendar. Each holiday has several
+    // costumes; "Surprise me" (the default) wears a different one each day.
+    // To add a holiday, add an entry to HOLIDAYS and a range to calendarTheme.
+    const THEME_KEY = 'nyan.theme';
+    const COSTUME_KEY = 'nyan.costume';
+    const K = '#000000', WHITE = '#ffffff';
+    // Draws rows of art in head coordinates (see HEAD); '.' is see-through.
+    const art = (at, rows, pal, ox, oy) => rows.forEach((row, j) => {
+      for (let i = 0; i < row.length; i++) if (row[i] !== '.') at(ox + i, oy + j, 1, 1, pal[row[i]]);
+    });
+    const ICONS = {
+      bat: [[
+        'X.......X',
+        'XX.X.X.XX',
+        'XXXXXXXXX',
+        '.XXXXXXX.',
+        '...X.X...',
+      ], [
+        '...X.X...',
+        '..XXXXX..',
+        '.XXXXXXX.',
+        'XX.XXX.XX',
+        'X.......X',
+      ]],
+      bolt: [['..XX', '.XX.', 'XXXX', '.XX.', 'XX..']],
+      leaf: [['...X.', '..XoX', '.XooX', 'XooX.', 'X.X..']],
+      flake: [['..w..', 'w.w.w', '.www.', 'w.w.w', '..w..']],
+      star: [['..y..', '.yyy.', 'yyyyy', '.yyy.', '.y.y.']],
+    };
+    const ICON_PAL = {
+      bat: { X: '#2b2b2b' }, bolt: { X: '#fab005' }, leaf: null, flake: { w: '#74c0fc' }, star: null,
+    };
+    const LEAVES = ['#e8590c', '#c92a2a', '#f2b134', '#a0522d'];
+    const CONFETTI_GOLD = ['#ffd43b', '#e9ecef', '#da77f2', '#4dabf7'];
+
+    const HOLIDAYS = {
+      halloween: {
+        name: 'Halloween',
+        trail: ['#ff6a00', '#ff9a3c', '#2b2b2b', '#6f2dbd', '#9b5de5', '#4caf50'],
+        icon: 'bat',
+        costumes: {
+          witch: {
+            name: 'Witch', word: 'boo!',
+            hat(at) {
+              art(at, [
+                '.............XX......',
+                '...........XXhX......',
+                '..........XhhX.......',
+                '.........XhhhX.......',
+                '........XhhhhX.......',
+                '.......XhhhhhhX......',
+                '.......XbbybbbX......',
+                '......XhhhhhhhhX.....',
+                'XXXXXXXXXXXXXXXXXXXXX',
+                'XhhhhhhhhhhhhhhhhhhhX',
+                '.XXXXXXXXXXXXXXXXXXX.',
+              ], { X: K, h: '#4a2a6b', b: '#ff7518', y: '#ffd43b' }, -3, -7);
+            },
+          },
+          frankenstein: {
+            name: 'Frankenstein', word: "it's alive!", fur: '#86b36b', cheek: '#a9cf8f', icon: 'bolt',
+            hat(at) {
+              art(at, [
+                '.XXXXXXXXXXXXX.',
+                'XkkkkkkkkkkkkkX',
+                'XkkkkkkkkkkkkkX',
+                'XkkkkkkkkkkkkkX',
+                'XkkkkkkkkkkkkkX',
+                'XkX.kX.k.Xk.XkX',
+              ], { X: K, k: '#2b2b2b' }, 0, -1);
+              at(7, 5, 3, 1, '#3d5a2a'); // stitches
+              at(8, 4, 1, 1, '#3d5a2a');
+              at(-2, 9, 2, 2, K); at(-1, 9, 1, 1, '#adb5bd'); // neck bolts
+              at(15, 9, 2, 2, K); at(15, 9, 1, 1, '#adb5bd');
+            },
+          },
+          vampire: {
+            name: 'Vampire', word: 'bleh!', fur: '#c9c9d9', cheek: '#e8b4c8',
+            behind(at) {
+              const pal = { X: K, r: '#c92a2a' };
+              art(at, ['X...', 'XX..', 'XrX.', 'XrrX', 'XrrX', 'XrrX', 'XrrX', 'XrrX', 'XXXX'], pal, -3, 4);
+              art(at, ['...X', '..XX', '.XrX', 'XrrX', 'XrrX', 'XrrX', 'XrrX', 'XrrX', 'XXXX'], pal, 14, 4);
+            },
+            hat(at) {
+              at(2, 3, 11, 2, '#1a1a1a'); // slicked hair with a widow's peak
+              at(4, 5, 7, 1, '#1a1a1a');
+              at(7, 6, 1, 1, '#1a1a1a');
+              at(5, 11, 1, 1, WHITE); at(9, 11, 1, 1, WHITE); // fangs
+            },
+          },
+          pumpkin: {
+            name: 'Jack-o\'-lantern', word: 'trick or treat!', chubPal: { crust: '#ff8c1a', frost: '#ffa94d', spr: '#5c2a00' },
+            body(r, b) {
+              const O = '#ff8c1a', D = '#e8590c', G = '#ffd43b', I = '#7a2e00';
+              r(6, 1 + b, 19, 17, K); r(5, 2 + b, 21, 15, K);
+              r(7, 2 + b, 17, 15, O); r(6, 3 + b, 19, 13, O);
+              [9, 13, 17].forEach((x) => r(x, 3 + b, 1, 13, D)); // ribs
+              r(14, -1 + b, 3, 3, K); r(15, -1 + b, 1, 2, '#2f9e44'); // stem
+              // Carved face, glowing.
+              r(7, 5 + b, 3, 3, K); r(8, 6 + b, 1, 1, G);
+              r(12, 5 + b, 3, 3, K); r(13, 6 + b, 1, 1, G);
+              r(7, 11 + b, 9, 3, K); r(8, 12 + b, 7, 1, G); r(9, 11 + b, 1, 1, O); r(13, 11 + b, 1, 1, O); r(11, 13 + b, 1, 1, O);
+              r(10, 9 + b, 1, 1, I);
+            },
+          },
+        },
+      },
+      thanksgiving: {
+        name: 'Thanksgiving',
+        trail: ['#8b4513', '#c0581f', '#e8890c', '#f2b134', '#b5651d', '#6b8e23'],
+        icon: 'leaf',
+        costumes: {
+          pilgrim: {
+            name: 'Pilgrim', word: 'gobble!',
+            hat(at) {
+              art(at, [
+                '...XXXXXXXXX...',
+                '...XhhhhhhhX...',
+                '...XhhhhhhhX...',
+                '...XhhhhhhhX...',
+                '...XhyyyyyhX...',
+                '...XhyhhhyhX...',
+                '...XhyyyyyhX...',
+                'XXXXXXXXXXXXXXX',
+                'XhhhhhhhhhhhhhX',
+                'XXXXXXXXXXXXXXX',
+              ], { X: K, h: '#262626', y: '#fcc419' }, 0, -6);
+              art(at, [
+                'XXXXXXXXXXXXX',
+                'XwwwwwXwwwwwX',
+                '.XwwwX.XwwwX.',
+                '..XXX...XXX..',
+              ], { X: K, w: WHITE }, 1, 11);
+            },
+          },
+          turkey: {
+            name: 'Turkey', word: 'gobble gobble!', fur: '#8d6e63', tail: false,
+            back(r, b) {
+              const cx = 10, cy = 10 + b, R = 13, cols = ['#a0522d', '#e8590c', '#fab005'];
+              for (let y = cy - R; y <= cy + 2; y++) {
+                for (let x = cx - R; x <= cx + 4; x++) {
+                  const d = Math.hypot(x + 0.5 - cx, y + 0.5 - cy);
+                  if (d > R) continue;
+                  const band = Math.floor((Math.atan2(y + 0.5 - cy, x + 0.5 - cx) + Math.PI) * 7 / Math.PI) % 3;
+                  r(x, y, 1, 1, d > R - 1.2 ? K : d > R - 3.5 ? '#6b3410' : cols[band]);
+                }
+              }
+            },
+            hat(at) {
+              at(7, 8, 2, 1, '#f08c00'); // beak
+              at(6, 11, 2, 1, '#e03131'); at(7, 12, 1, 2, '#e03131'); // wattle
+            },
+          },
+          pie: {
+            name: 'Pumpkin pie', word: 'pie!', chubPal: { crust: '#c68642', frost: '#e8862a', spr: WHITE },
+            body(r, b) {
+              const C = '#c68642', E = '#9c5a24', F = '#e8862a';
+              r(5, 1 + b, 21, 17, K);
+              r(6, 2 + b, 19, 15, C);
+              r(8, 4 + b, 15, 11, F);
+              for (let x = 6; x < 25; x += 2) { r(x, 2 + b, 1, 1, E); r(x, 16 + b, 1, 1, E); }
+              for (let y = 4; y < 16; y += 2) r(6, y + b, 1, 1, E);
+              r(12, 5 + b, 2, 1, WHITE); r(11, 6 + b, 4, 1, WHITE); r(10, 7 + b, 6, 2, WHITE); // whipped cream
+              r(13, 4 + b, 1, 1, WHITE); r(11, 9 + b, 4, 1, '#e9ecef');
+              [[9, 12], [16, 6], [14, 12], [10, 5]].forEach(([x, y]) => r(x, y + b, 1, 1, '#a34a12'));
+            },
+          },
+        },
+      },
+      christmas: {
+        name: 'Christmas',
+        trail: ['#e03131', WHITE, '#2f9e44', '#e03131', WHITE, '#2f9e44'],
+        icon: 'flake',
+        costumes: {
+          santa: {
+            name: 'Santa', word: 'ho ho ho!',
+            hat(at) {
+              art(at, [
+                '.............XXX..',
+                '............XwwwX.',
+                '......XXXXXXXwwwX.',
+                '.....XrrrrrrrXXX..',
+                '....XrrrrrrrrrX...',
+                '...XrrrrrrrrrrX...',
+                '..XrrrrrrrrrrrrX..',
+                '.XwwwwwwwwwwwwwwX.',
+                '.XwwwwwwwwwwwwwwX.',
+                '..XXXXXXXXXXXXXX..',
+              ], { X: K, r: '#e03131', w: WHITE }, -1, -7);
+            },
+          },
+          elf: {
+            name: 'Elf', word: 'jingle!',
+            behind(at) {
+              const pal = { X: K, g: '#999999' };
+              art(at, ['XX..', 'XggX', '.XXX'], pal, -3, 5); // pointy ears out the sides
+              art(at, ['..XX', 'XggX', 'XXX.'], pal, 14, 5);
+            },
+            hat(at) {
+              art(at, [
+                '............y..',
+                '...........XX..',
+                '..........XgX..',
+                '.........XggX..',
+                '........XgggX..',
+                '.......XggggX..',
+                '......XrrrrrrX.',
+                '.....XggggggggX',
+                'XXXXXXXXXXXXXXX',
+                'XrrrrrrrrrrrrrX',
+                'XXXXXXXXXXXXXXX',
+              ], { X: K, g: '#2f9e44', r: '#e03131', y: '#fcc419' }, 0, -7);
+            },
+          },
+          reindeer: {
+            name: 'Reindeer', word: 'dash away!', fur: '#8d6e63', cheek: '#c4a090',
+            hat(at) {
+              art(at, [
+                '.X..X.....X..X.',
+                'XaXXaX...XaXXaX',
+                'XaaaaX...XaaaaX',
+                '.XaaX.....XaaX.',
+                '..XaX.....XaX..',
+                '..XaX.....XaX..',
+              ], { X: K, a: '#c08457' }, 0, -6);
+              at(6, 7, 3, 2, '#e03131'); at(6, 7, 1, 1, '#ffa8a8'); // shiny nose
+            },
+          },
+          gingerbread: {
+            name: 'Gingerbread', word: 'catch me!', fur: '#b5651d', cheek: '#ff8fab',
+            chubPal: { crust: '#8b4513', frost: '#b5651d', spr: WHITE },
+            hat(at) {
+              for (let x = 3; x < 12; x += 2) at(x, 11, 1, 1, WHITE); // icing smile line
+            },
+            body(r, b) {
+              const G = '#b5651d';
+              r(5, 1 + b, 21, 17, K);
+              r(6, 2 + b, 19, 15, G);
+              for (let x = 7; x < 24; x++) { r(x, (x % 2 ? 3 : 4) + b, 1, 1, WHITE); r(x, (x % 2 ? 15 : 14) + b, 1, 1, WHITE); }
+              r(11, 7 + b, 2, 2, '#e03131'); r(11, 11 + b, 2, 2, '#2f9e44'); r(15, 9 + b, 2, 2, '#fcc419');
+            },
+          },
+        },
+      },
+      newyear: {
+        name: 'New Year',
+        trail: ['#ffd43b', '#f8f9fa', '#4dabf7', '#da77f2', '#ffd43b', '#adb5bd'],
+        icon: 'star',
+        costumes: {
+          party: {
+            name: 'Party hat', word: 'happy new year!',
+            hat(at) {
+              art(at, [
+                '....XXX....',
+                '....XyX....',
+                '...XXmXX...',
+                '...XmpmX...',
+                '..XmpmpmX..',
+                '..XpmpmpX..',
+                '.XmpmpmpmX.',
+                '.XpmpmpmpX.',
+                'XmpmpmpmpmX',
+                'XXXXXXXXXXX',
+              ], { X: K, y: '#ffd43b', m: '#da77f2', p: '#4dabf7' }, 2, -7);
+              // Party blower from the mouth.
+              at(9, 9, 6, 1, '#ff6b6b'); at(10, 9, 1, 1, '#ffd43b'); at(12, 9, 1, 1, '#ffd43b');
+              at(15, 8, 1, 2, '#ff6b6b'); at(14, 7, 2, 1, '#ff6b6b');
+            },
+          },
+          tophat: {
+            name: 'Top hat', word: 'cheers!',
+            hat(at) {
+              art(at, [
+                '..XXXXXXXXX..',
+                '..XhhhhhhhX..',
+                '..XhhhhhhhX..',
+                '..XhhhhhhhX..',
+                '..XhhhhhhhX..',
+                '..XyyyyyyyX..',
+                '..XhhhhhhhX..',
+                'XXXXXXXXXXXXX',
+                'XhhhhhhhhhhhX',
+                'XXXXXXXXXXXXX',
+              ], { X: K, h: '#1a1a1a', y: '#fcc419' }, 1, -6);
+              art(at, ['XX...XX', 'XyX.XyX', 'XyyXyyX', 'XyX.XyX', 'XX...XX'], { X: K, y: '#fcc419' }, 4, 10); // bow tie
+            },
+          },
+          glitter: {
+            name: 'Glitter', word: 'sparkle!', chubPal: { crust: '#d4a017', frost: '#ffd43b', spr: WHITE },
+            body(r, b) {
+              r(5, 1 + b, 21, 17, K);
+              r(6, 2 + b, 19, 15, '#d4a017');
+              r(8, 4 + b, 15, 11, '#ffd43b');
+              // Sprinkles twinkle in turn.
+              const tw = Math.floor(now() / 180);
+              SPRINKLES.forEach(([x, y], i) => r(x, y + b, 1, 1, (i + tw) % 3 ? WHITE : '#fff3bf'));
+              if (tw % 4 === 0) { r(20, 5 + b, 1, 3, WHITE); r(19, 6 + b, 3, 1, WHITE); }
+            },
+          },
+        },
+      },
+    };
+    const THEMES = ['auto', 'none', ...Object.keys(HOLIDAYS)];
+    const THEME_NAMES = Object.assign({ auto: 'Auto', none: 'Off' },
+      Object.fromEntries(Object.entries(HOLIDAYS).map(([k, h]) => [k, h.name])));
+
+    // The holiday for a date, for "Auto". Thanksgiving runs from November 1
+    // through the Sunday after US Thanksgiving (the fourth Thursday).
+    function calendarTheme(d) {
+      const m = d.getMonth(), day = d.getDate();
+      if (m === 9) return 'halloween';
+      if (m === 10 || m === 11) {
+        const first = new Date(d.getFullYear(), 10, 1).getDay();
+        const thanks = 1 + ((4 - first + 7) % 7) + 21;
+        const end = new Date(d.getFullYear(), 10, thanks + 3);
+        if (d < new Date(end.getFullYear(), end.getMonth(), end.getDate() + 1)) return 'thanksgiving';
+        if (m === 11 && day <= 26) return 'christmas';
+        if (m === 11) return 'newyear';
+        return 'christmas';
+      }
+      if (m === 0 && day <= 7) return 'newyear';
+      return null;
+    }
+    // Days since 1970 in local time, so "Surprise me" changes at local midnight.
+    const dayNumber = (d) => Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000);
+
+    const getVal = (key, dflt) => {
+      try {
+        const v = hasGM ? GM_getValue(key, dflt) : JSON.parse(localStorage.getItem(key));
+        return v === null || v === undefined ? dflt : v;
+      } catch (e) { return dflt; }
+    };
+    const setVal = (key, v) => {
+      try { if (hasGM) GM_setValue(key, v); else localStorage.setItem(key, JSON.stringify(v)); } catch (e) { /* forget */ }
+    };
+    let themePick = THEMES.includes(getVal(THEME_KEY, 'auto')) ? getVal(THEME_KEY, 'auto') : 'auto';
+    let costumePicks = Object.assign({}, getVal(COSTUME_KEY, {}));
+    let holiday = null;  // key of the holiday being worn, or null
+    let costumeKey = null;
+    let costume = null;  // the costume being worn, or null
+    let costumeDay = -1;
+
+    function costumeFor(h, d) {
+      const keys = Object.keys(HOLIDAYS[h].costumes);
+      const pick = costumePicks[h];
+      return keys.includes(pick) ? pick : keys[dayNumber(d) % keys.length];
+    }
+    // Works out what to wear today. Returns true when it changed.
+    function dress() {
+      const d = new Date();
+      costumeDay = dayNumber(d);
+      const h = themePick === 'auto' ? calendarTheme(d) : themePick === 'none' ? null : themePick;
+      const c = h ? costumeFor(h, d) : null;
+      const changed = h !== holiday || c !== costumeKey;
+      holiday = h;
+      costumeKey = c;
+      costume = h ? HOLIDAYS[h].costumes[c] : null;
+      return changed;
+    }
+    dress();
+    function setTheme(t) {
+      if (!THEMES.includes(t)) return false;
+      themePick = t;
+      setVal(THEME_KEY, t);
+      dress();
+      say(costume ? costume.name.toLowerCase() : THEME_NAMES[t].toLowerCase(), '#ae3ec9');
+      return true;
+    }
+    // c is a costume key, or 'surprise' for a different one each day.
+    function setCostume(h, c) {
+      if (!HOLIDAYS[h] || (c !== 'surprise' && !HOLIDAYS[h].costumes[c])) return false;
+      if (c === 'surprise') delete costumePicks[h];
+      else costumePicks[h] = c;
+      setVal(COSTUME_KEY, costumePicks);
+      // Picking a costume for a holiday that is not on puts that holiday on.
+      if (themePick !== h && h !== (themePick === 'auto' ? calendarTheme(new Date()) : null)) {
+        themePick = h;
+        setVal(THEME_KEY, h);
+      }
+      dress();
+      if (costume) say(costume.name.toLowerCase(), '#ae3ec9');
+      return true;
+    }
+    // The menus' view of all this.
+    function holidayInfo() {
+      return {
+        theme: themePick, holiday, costume: costumeKey,
+        themes: THEMES.map((k) => [k, THEME_NAMES[k]]),
+        holidays: Object.entries(HOLIDAYS).map(([k, h]) => ({
+          key: k, name: h.name, pick: costumePicks[k] || 'surprise',
+          costumes: Object.entries(h.costumes).map(([ck, c]) => [ck, c.name]),
+        })),
+      };
+    }
+    const trailColors = () => (holiday ? HOLIDAYS[holiday].trail : RAINBOW);
+    const flingWord = () => (costume ? costume.word : 'nyan!');
+    // A little icon off every third trail block.
+    function trailIcon(x, y, i) {
+      if (!holiday || i % 3) return;
+      const kind = (costume && costume.icon) || HOLIDAYS[holiday].icon;
+      const pal = ICON_PAL[kind] ||
+        (kind === 'leaf' ? { X: '#5c2a00', o: LEAVES[i % LEAVES.length] } : { y: CONFETTI_GOLD[i % CONFETTI_GOLD.length] });
+      emit('icon', x + rand(-6, 6), y + rand(0, 10 * P), { kind, pal, vx: rand(-12, 12), vy: rand(-28, -10), life: 1.3 });
     }
 
     // ---------- surfaces ----------
@@ -1648,7 +2056,8 @@
       // always touch even when the cat covers more than a block in one frame.
       let x0 = lastTrailX === null ? ax - cat.facing * TRAIL_SEG : lastTrailX;
       if (flying && Math.abs(ax - x0) < TRAIL_SEG / 2) x0 = ax - cat.facing * TRAIL_SEG; // steep flight: stack blocks
-      trail.push({ x0, x: ax, y: cat.y, t: now(), i: trailIdx++ });
+      trail.push({ x0, x: ax, y: cat.y, t: now(), i: trailIdx });
+      trailIcon(ax, cat.y, trailIdx++);
       lastTrailX = ax;
       lastTrailY = cat.y;
       if (trail.length > 90) trail.shift();
@@ -2059,7 +2468,8 @@
     ];
     // Squatting spreads the body out sideways and lowers its top.
     const SQUASH = (g) => ({ x0: g.x0 - 2, x1: g.x1 + 1, y0: g.y0 + 3, y1: g.y1, n: g.n + 0.4 });
-    function drawRoundBody(r, b, squash) {
+    function drawRoundBody(r, b, squash, pal) {
+      const c = pal || COL;
       const g = squash ? SQUASH(ROUND[chub]) : ROUND[chub];
       const cx = (g.x0 + g.x1 + 1) / 2, cy = (g.y0 + g.y1 + 1) / 2;
       const a0 = (g.x1 - g.x0 + 1) / 2, h0 = (g.y1 - g.y0 + 1) / 2;
@@ -2073,10 +2483,10 @@
         }
       };
       layer(0, COL.k);
-      layer(1, COL.crust);
-      layer(3, COL.frost);
+      layer(1, c.crust);
+      layer(3, c.frost);
       const k = (a0 - 3) / 7.5; // spread the sprinkles over the bigger frosting
-      SPRINKLES.forEach(([x, y]) => r(Math.round(cx + (x + 0.5 - 15.5) * k - 0.5), Math.round(cy + (y + 0.5 - 9.5) * k - 0.5) + b, 1, 1, COL.spr));
+      SPRINKLES.forEach(([x, y]) => r(Math.round(cx + (x + 0.5 - 15.5) * k - 0.5), Math.round(cy + (y + 0.5 - 9.5) * k - 0.5) + b, 1, 1, c.spr));
     }
 
     let catK = 1, catKx = 0, catKy = 0; // shrink toward a portal
@@ -2088,9 +2498,12 @@
       ctx.translate(OX + p.dx, 0);
       const r = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
       const b = p.b;
+      const cos = costume || {};
+      const fur = cos.fur || COL.fur;
+      if (cos.back) cos.back(r, b);
 
       // Tail: a traveling wave from the body out to the tip, so it wags.
-      const n = 8, by = 10 + b, cols = [], tx0 = chub ? ROUND[chub].x0 + 1 : 6;
+      const n = cos.tail === false ? 0 : 8, by = 10 + b, cols = [], tx0 = chub ? ROUND[chub].x0 + 1 : 6;
       let prev = null;
       for (let k = 0; k < n; k++) {
         const u = k / (n - 1);
@@ -2100,8 +2513,8 @@
         cols.push([tx0 - k, lo, hi]);
         prev = y;
       }
-      r(tx0 - n, prev - 1, 1, 2, COL.k);
-      for (const [x, lo, hi] of cols) r(x, lo - 1, 1, hi - lo + 2, COL.fur);
+      if (n) r(tx0 - n, prev - 1, 1, 2, COL.k);
+      for (const [x, lo, hi] of cols) r(x, lo - 1, 1, hi - lo + 2, fur);
 
       // legs (drawn before the body so the body overlaps their tops)
       if (p.legs !== 'tuck') {
@@ -2116,12 +2529,13 @@
             else top = p.tap === i - 2 ? 13 : 14;  // front paws on the keys; one lifts per keystroke
           }
           r(x - 1, top, 4, len, COL.k);
-          r(x, top, 2, len - 1, COL.fur);
+          r(x, top, 2, len - 1, fur);
         });
       }
 
       // Pop-Tart body
-      if (chub) drawRoundBody(r, b, p.squash);
+      if (chub) drawRoundBody(r, b, p.squash, cos.chubPal);
+      else if (cos.body) cos.body(r, b);
       else {
         r(5, 1 + b, 21, 17, COL.k);
         r(6, 2 + b, 19, 15, COL.crust);
@@ -2132,13 +2546,15 @@
 
       // head
       const hx = HEAD_X + p.headDx, hy = HEAD_Y + b + p.headDy;
+      const at = (x, y, w, h, c) => r(hx + x, hy + y, w, h, c || COL.k);
+      if (cos.behind) cos.behind(at);
+      const headPal = cos.fur || cos.cheek ? { X: COL.k, g: fur, p: cos.cheek || COL.cheek } : HEAD_PAL;
       HEAD.forEach((row, j) => {
         for (let i = 0; i < row.length; i++) {
           const ch = row[i];
-          if (ch !== '.') r(hx + i, hy + j, 1, 1, HEAD_PAL[ch]);
+          if (ch !== '.') r(hx + i, hy + j, 1, 1, headPal[ch]);
         }
       });
-      const at = (x, y, w, h, c) => r(hx + x, hy + y, w, h, c || COL.k);
 
       const eye = (ex) => {
         switch (p.eyes) {
@@ -2183,6 +2599,7 @@
           at(4, 9, 1, 1); at(7, 9, 1, 1); at(10, 9, 1, 1);
           at(5, 10, 2, 1); at(8, 10, 2, 1);
       }
+      if (cos.hat) cos.hat(at, p);
       if (p.laptop) drawLaptop(r, p.tap >= 0);
     }
 
@@ -2238,7 +2655,7 @@
         if (r <= l) return;
         ctx.globalAlpha = clamp(alpha, 0, 1);
         const top = y + (i % 2) * P;
-        RAINBOW.forEach((c, k) => {
+        trailColors().forEach((c, k) => {
           const y0 = Math.round((top + (1 + k * 3) * P) * dpr);
           const y1 = Math.round((top + (4 + k * 3) * P) * dpr);
           ctx.fillStyle = c;
@@ -2362,6 +2779,11 @@
         ctx.globalAlpha = Math.max(0, 1 - p.age / p.life);
         if (p.type === 'heart') { drawGrid(HEART, HEART_PAL, p.x, p.y); continue; }
         if (p.type === 'bones') { drawGrid(BONES, BONES_PAL, p.x, p.y); continue; }
+        if (p.type === 'icon') {
+          const frames = ICONS[p.kind];
+          drawGrid(frames[Math.floor(p.age * 8) % frames.length], p.pal, p.x, p.y);
+          continue;
+        }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         if (p.type === 'text') {
           ctx.font = 'bold ' + Math.round(p.size) + 'px monospace';
@@ -2527,7 +2949,7 @@
         const k = tooHeavy() ? HEAVY_FLING : 1;
         cat.vx = vx * k; cat.vy = vy * k;
         cat.air = !fling ? 'drop' : cat.grabbedAsleep ? 'hurt' : 'rainbow';
-        if (cat.air === 'rainbow') say('nyan!', '#ae3ec9');
+        if (cat.air === 'rainbow') say(flingWord(), '#ae3ec9');
         if (cat.air === 'hurt') say('?!', '#c92a2a');
         setState('fall', Infinity);
         save();
@@ -2662,6 +3084,10 @@
         save();
       },
       spots() { setPerchSpots(!spotsOn); },
+      themeNext() { stepTheme(1); },
+      themePrev() { stepTheme(-1); },
+      costumeNext() { stepCostume(1); },
+      costumePrev() { stepCostume(-1); },
       sites() { closeMenu(); openSitesModal(); },
       reset() {
         if (hidden) { hidden = false; applyHidden(); }
@@ -2671,6 +3097,17 @@
         save();
       },
     };
+
+    function stepTheme(d) {
+      setTheme(THEMES[(THEMES.indexOf(themePick) + d + THEMES.length) % THEMES.length]);
+    }
+    // Steps through "Surprise me" and the holiday's costumes.
+    function stepCostume(d) {
+      if (!holiday) return;
+      const list = ['surprise', ...Object.keys(HOLIDAYS[holiday].costumes)];
+      const cur = costumePicks[holiday] || 'surprise';
+      setCostume(holiday, list[(list.indexOf(cur) + d + list.length) % list.length]);
+    }
 
     // ---------- right-click menu ----------
     // Built from plain elements styled through the CSSOM, like the rest of the
@@ -2683,6 +3120,8 @@
       { label: () => (cat.state === 'sleep' ? 'Wake up' : 'Nap time'), run: 'nap' },
       'sep',
       { size: true },
+      { theme: true },
+      { costume: true },
       'sep',
       { label: 'Perch on page elements', run: 'perch', on: () => perchOn },
       { label: 'Show perch spots', run: 'spots', on: () => spotsOn },
@@ -2695,7 +3134,7 @@
     const menu = document.createElement('div');
     menu.setAttribute('role', 'menu');
     Object.assign(menu.style, {
-      position: 'fixed', top: '0', left: '0', display: 'none', minWidth: '190px', padding: '4px',
+      position: 'fixed', top: '0', left: '0', display: 'none', minWidth: '230px', padding: '4px',
       background: '#ffffff', color: '#212529', border: '1px solid #ced4da', borderRadius: '8px',
       boxShadow: '0 6px 20px rgba(0,0,0,0.18)', pointerEvents: 'auto', userSelect: 'none',
       font: '13px/1.3 system-ui, -apple-system, "Segoe UI", sans-serif', boxSizing: 'border-box',
@@ -2706,18 +3145,34 @@
     // "Size: Normal  [-] [+]". The buttons keep the menu open, so you can step
     // through the sizes and watch the cat change.
     function sizeRow() {
+      return stepRow('Size: ' + SIZES[sizeIdx].name, [
+        ['−', 'Smaller', 'smaller', sizeIdx > 0],
+        ['+', 'Bigger', 'bigger', sizeIdx < SIZES.length - 1],
+      ]);
+    }
+    function themeRow() {
+      return stepRow('Theme: ' + THEME_NAMES[themePick] + (themePick === 'auto' && holiday ? ' (' + HOLIDAYS[holiday].name + ')' : ''), [
+        ['‹', 'Previous theme', 'themePrev', true],
+        ['›', 'Next theme', 'themeNext', true],
+      ]);
+    }
+    function costumeRow() {
+      const surprise = !costumePicks[holiday];
+      return stepRow((surprise ? 'Surprise: ' : 'Costume: ') + costume.name, [
+        ['‹', 'Previous costume', 'costumePrev', true],
+        ['›', 'Next costume', 'costumeNext', true],
+      ]);
+    }
+    function stepRow(label, buttons) {
       const row = document.createElement('div');
       Object.assign(row.style, { display: 'flex', alignItems: 'center', padding: '4px 6px 4px 10px' });
       const mark = document.createElement('span');
       Object.assign(mark.style, { display: 'inline-block', width: '18px' });
       const text = document.createElement('span');
       Object.assign(text.style, { flex: '1' });
-      text.textContent = 'Size: ' + SIZES[sizeIdx].name;
+      text.textContent = label;
       row.append(mark, text);
-      for (const [glyph, name, run, can] of [
-        ['−', 'Smaller', 'smaller', sizeIdx > 0],
-        ['+', 'Bigger', 'bigger', sizeIdx < SIZES.length - 1],
-      ]) {
+      for (const [glyph, name, run, can] of buttons) {
         const b = document.createElement('button');
         b.type = 'button';
         b.setAttribute('role', 'menuitem');
@@ -2754,6 +3209,8 @@
       menu.replaceChildren();
       for (const it of MENU_ITEMS) {
         if (it.size) { menu.append(sizeRow()); continue; }
+        if (it.theme) { menu.append(themeRow()); continue; }
+        if (it.costume) { if (costume) menu.append(costumeRow()); continue; }
         if (it === 'sep') {
           const hr = document.createElement('div');
           Object.assign(hr.style, { height: '1px', background: '#e9ecef', margin: '4px 6px' });
@@ -2911,10 +3368,16 @@
 
     let last = now();
     let reported = false;
+    let dressCheckAt = 0;
     function frame(t) {
       const dt = Math.min(0.05, (t - last) / 1000);
       last = t;
       try {
+        // A new day can bring a new holiday or a new surprise costume.
+        if (t - dressCheckAt > 60000) {
+          dressCheckAt = t;
+          if (dayNumber(new Date()) !== costumeDay) dress();
+        }
         if (!hidden && tabActive) {
           if (!portal) update(dt);
           stepPortal(dt);
@@ -2999,6 +3462,9 @@
         get size() { return sizeIdx; }, get sizeName() { return SIZES[sizeIdx].name; }, setSize,
         get sizeNames() { return SIZES.map((s) => s.name); }, normalSize: NORMAL_SIZE,
         hitBox() { return { w: parseFloat(hit.style.width), h: parseFloat(hit.style.height) }; },
+        // Holiday themes and costumes, for the apps' menus and the tests.
+        holidayInfo, setTheme, setCostume, calendarTheme, dress, HOLIDAYS,
+        get holiday() { return holiday; }, get costumeKey() { return costumeKey; }, get theme() { return themePick; },
       };
     }
 

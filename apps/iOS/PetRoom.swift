@@ -19,6 +19,7 @@ final class PetRoom: NSObject, ObservableObject, WKNavigationDelegate, WKScriptM
     @Published var sizeName = "Normal"
     @Published var mood = 0.5   // affection, 0.25 to 1
     @Published var chub = 0     // roundness, 0 to 5
+    @Published var holidays = HolidayInfo()
     /// False until the room has drawn, so launch shows the wall color, not a blank page.
     @Published var ready = false
 
@@ -58,6 +59,9 @@ final class PetRoom: NSObject, ObservableObject, WKNavigationDelegate, WKScriptM
         webView.nyanAct(name)
     }
 
+    func setTheme(_ t: String) { webView.nyanTheme(t) }
+    func setCostume(_ holiday: String, _ costume: String) { webView.nyanCostume(holiday, costume) }
+
     var moodText: String {
         switch mood {
         case 0.85...: return "Adores you"
@@ -93,6 +97,7 @@ final class PetRoom: NSObject, ObservableObject, WKNavigationDelegate, WKScriptM
         sizeName = body["sizeName"] as? String ?? sizeName
         mood = body["mood"] as? Double ?? mood
         chub = body["chub"] as? Int ?? chub
+        if let h = HolidayInfo(body), h != holidays { holidays = h }
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

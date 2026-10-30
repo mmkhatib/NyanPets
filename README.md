@@ -54,6 +54,32 @@ offers one.
 Five fish in ten seconds make it rounder; too round and it squats until it
 slims down. Left alone for long, it gets lonely, then grumpy.
 
+## Holidays
+
+The cat dresses up for the holidays. **Theme** picks the holiday: **Auto**
+(the default) follows the calendar, **Off** keeps the classic look, or pick
+one to wear all year. Each holiday has its own costumes, trail colors, little
+icons drifting off the trail, and a word when you fling the cat.
+**Costume** picks one per holiday; **Surprise Me** (the default) wears a
+different one each day, changing at midnight.
+
+| Holiday | Auto dates | Costumes | Trail icons |
+|---|---|---|---|
+| Halloween | October | Witch, Frankenstein, Vampire, Jack-o'-lantern | bats (bolts for Frankenstein) |
+| Thanksgiving | November 1 through the Sunday after Thanksgiving | Pilgrim, Turkey, Pumpkin pie | autumn leaves |
+| Christmas | then through December 26 | Santa, Elf, Reindeer, Gingerbread | snowflakes |
+| New Year | December 27 through January 7 | Party hat, Top hat, Glitter | stars |
+
+Both are in the cat's right-click menu (‹ › to step through), the Mac menu
+bar, and the iOS More menu. The menus are built from what the cat reports, so
+a holiday or costume added to the script shows up in all of them.
+
+To add a holiday, add an entry to `HOLIDAYS` in `nyassistant.user.js` (name,
+six trail colors, icon, and costumes) and its dates to `calendarTheme`. A
+costume can change the fur and cheek colors, draw a `hat` and face details
+over the head, draw `behind` the head or `back` behind the body, replace the
+Pop-Tart `body`, give the round body its own `chubPal`, and hide the tail.
+
 The Mac menu also has **Perch Inside Apps**, **Type Along**, and **Follow the
 Pointer to Other Displays** (all on by default), **Bring to This Display**
 when you have more than one, and **Open Log** (`~/Library/Logs/NyAssistant.log`,
@@ -106,7 +132,7 @@ ruby tools/make_xcodeproj.rb
 python3 tools/make_icons.py   # only if you change the icon art
 ```
 
-Test the Mac page side (no permissions needed):
+Test the page side, including every costume (no permissions needed):
 
 ```sh
 mkdir -p build && swiftc -O tests/host-test.swift -o build/host-test && build/host-test .

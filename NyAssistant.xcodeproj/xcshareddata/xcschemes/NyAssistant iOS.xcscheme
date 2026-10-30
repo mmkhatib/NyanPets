@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DAA575BC445AECAC4D157BF7"
+               BlueprintIdentifier = "1255D35A7C86F7305BE74F50"
                BuildableName = "NyAssistant.app"
                BlueprintName = "NyAssistant iOS"
                ReferencedContainer = "container:NyAssistant.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DAA575BC445AECAC4D157BF7"
+            BlueprintIdentifier = "1255D35A7C86F7305BE74F50"
             BuildableName = "NyAssistant.app"
             BlueprintName = "NyAssistant iOS"
             ReferencedContainer = "container:NyAssistant.xcodeproj">
@@ -53,7 +53,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DAA575BC445AECAC4D157BF7"
+            BlueprintIdentifier = "1255D35A7C86F7305BE74F50"
             BuildableName = "NyAssistant.app"
             BlueprintName = "NyAssistant iOS"
             ReferencedContainer = "container:NyAssistant.xcodeproj">
@@ -70,7 +70,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DAA575BC445AECAC4D157BF7"
+            BlueprintIdentifier = "1255D35A7C86F7305BE74F50"
             BuildableName = "NyAssistant.app"
             BlueprintName = "NyAssistant iOS"
             ReferencedContainer = "container:NyAssistant.xcodeproj">

@@ -10,7 +10,7 @@ require 'xcodeproj'
 ROOT = File.expand_path('..', __dir__)
 PATH = File.join(ROOT, 'NyAssistant.xcodeproj')
 # The apps' own version. The cat script has its own @version, shown in the menus.
-VERSION = '0.11.0'
+VERSION = '0.12.0'
 # Signs both apps with this team's Apple Development certificate. The Mac app
 # needs a signature that stays the same across builds: macOS ties the
 # Accessibility and Input Monitoring permissions to it.

@@ -149,6 +149,73 @@ extension WKWebView {
     }
 }
 
+/// The cat's holiday theme and costume, and every choice, as the page
+/// reports them (see holidayInfo in the cat script). The menus are built from
+/// this, so a holiday or costume added to the script shows up on its own.
+struct HolidayInfo: Equatable {
+    struct Choice: Hashable { let key: String; let name: String }
+    struct Holiday: Hashable {
+        let key: String
+        let name: String
+        let pick: String // a costume key, or "surprise"
+        let costumes: [Choice]
+    }
+
+    var theme = "auto"
+    var holiday: String?
+    var costume: String?
+    var themes: [Choice] = []
+    var holidays: [Holiday] = []
+
+    init() {}
+
+    init?(_ body: [String: Any]) {
+        guard let theme = body["theme"] as? String else { return nil }
+        self.theme = theme
+        holiday = body["holiday"] as? String
+        costume = body["costume"] as? String
+        themes = HolidayInfo.choices(body["themes"])
+        holidays = (body["holidays"] as? [[String: Any]] ?? []).compactMap { h in
+            guard let key = h["key"] as? String, let name = h["name"] as? String else { return nil }
+            return Holiday(key: key, name: name, pick: h["pick"] as? String ?? "surprise",
+                           costumes: HolidayInfo.choices(h["costumes"]))
+        }
+    }
+
+    /// The holiday being worn now, if any.
+    var current: Holiday? { holidays.first { $0.key == holiday } }
+
+    /// "Auto (Halloween)", "Off", "Christmas", ...
+    var themeTitle: String {
+        let name = themes.first { $0.key == theme }?.name ?? theme
+        if theme == "auto", let h = current { return "\(name) (\(h.name))" }
+        return name
+    }
+
+    var costumeName: String? {
+        current?.costumes.first { $0.key == costume }?.name
+    }
+
+    private static func choices(_ v: Any?) -> [Choice] {
+        (v as? [[Any]] ?? []).compactMap { pair in
+            guard pair.count == 2, let k = pair[0] as? String, let n = pair[1] as? String else { return nil }
+            return Choice(key: k, name: n)
+        }
+    }
+}
+
+extension WKWebView {
+    /// t: "auto", "none", or a holiday key.
+    func nyanTheme(_ t: String) {
+        nyanEval("window.__nyanApp && window.__nyanApp.theme(\(NyanScripts.jsString(t)))")
+    }
+
+    /// c: a costume key of holiday h, or "surprise".
+    func nyanCostume(_ h: String, _ c: String) {
+        nyanEval("window.__nyanApp && window.__nyanApp.costume(\(NyanScripts.jsString(h)), \(NyanScripts.jsString(c)))")
+    }
+}
+
 /// WKUserContentController keeps its handlers alive; this breaks the cycle
 /// between the controller and the object that owns the web view.
 final class WeakMessageHandler: NSObject, WKScriptMessageHandler {

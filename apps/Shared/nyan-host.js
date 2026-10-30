@@ -66,6 +66,8 @@
       sizes: a.sizeNames.length, perch: saved.perch !== false, hidden: !!saved.hidden,
       sleeping: a.cat.state === 'sleep', mood: Math.round(a.aff * 100) / 100, chub: a.chub,
     };
+    // Holiday theme and costume: what is on, and every choice, for the app menus.
+    if (a.holidayInfo) Object.assign(msg, a.holidayInfo());
     const key = JSON.stringify(msg);
     if (!force && key === lastReport) return;
     lastReport = key;
@@ -99,6 +101,20 @@
       return !!a;
     },
     report() { wrapActs(); report(true); return true; },
+    // t: 'auto', 'none', or a holiday key.
+    theme(t) {
+      const a = api();
+      const ok = !!(a && a.setTheme(t));
+      report(true);
+      return ok;
+    },
+    // c: a costume key of holiday h, or 'surprise'.
+    costume(h, c) {
+      const a = api();
+      const ok = !!(a && a.setCostume(h, c));
+      report(true);
+      return ok;
+    },
   };
 
   // ---------- touch (iOS) ----------

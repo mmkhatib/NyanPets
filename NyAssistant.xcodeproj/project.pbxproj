@@ -7,54 +7,54 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		121A92D402B6F8450178C094 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53B58B867FA1FCB6C1F8F01E /* Assets.xcassets */; };
-		14A26BFFAB4B40EF9B3959CF /* NyanScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C660378F73ACDB7FEAA87961 /* NyanScripts.swift */; };
-		1830BD337C0764424EFBD29E /* nyan-host.js in Resources */ = {isa = PBXBuildFile; fileRef = 70F86E3562BCD841BBE6AD08 /* nyan-host.js */; };
-		311EFA0BC8BE7F90AF442A75 /* PetRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DD40290557694704A45DD /* PetRoom.swift */; };
-		3E6ACABD108D463CA9BDB71C /* nyan-host.js in Resources */ = {isa = PBXBuildFile; fileRef = 70F86E3562BCD841BBE6AD08 /* nyan-host.js */; };
-		421DD2546378E6677CE18229 /* nyassistant.user.js in Resources */ = {isa = PBXBuildFile; fileRef = 2030D2A06241D9EA327AD1A4 /* nyassistant.user.js */; };
-		47C36EC9A78381A68F668739 /* Desktop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0915489864BB79567D61F086 /* Desktop.swift */; };
-		4CC227D721B25547AA03E236 /* nyassistant.user.js in Resources */ = {isa = PBXBuildFile; fileRef = 2030D2A06241D9EA327AD1A4 /* nyassistant.user.js */; };
-		4F5662D57E89FF9D206A1457 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53B58B867FA1FCB6C1F8F01E /* Assets.xcassets */; };
-		76F91ABE6F71C7446CA73888 /* NyanScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C660378F73ACDB7FEAA87961 /* NyanScripts.swift */; };
-		9D418B51ABA457564577548A /* overlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 1CCECB3AB9F107BF8852BC3A /* overlay.html */; };
-		B6438F98B1A94D9067DE992F /* KeyTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE55DCE2320C870C0DB7366 /* KeyTap.swift */; };
-		C530F0BE3B3B7582F32328B5 /* OverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D866FF5ACF70BDDEA03B0484 /* OverlayController.swift */; };
-		C5DBB24DF746F920ACC46779 /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5242ED1BAB7D1B9F721317 /* Permissions.swift */; };
-		D402DB2CB059392F2DBA6958 /* NyAssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CDAD17A5990702E7184274 /* NyAssistantApp.swift */; };
-		D7161BC240E956F6ABD2B407 /* NyAssistantMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B17B0E24F765FA35FC8740 /* NyAssistantMacApp.swift */; };
-		E4264619CB5F2C400FE19FA3 /* room.html in Resources */ = {isa = PBXBuildFile; fileRef = E89ACEF37A63FF15355DD18E /* room.html */; };
+		1479FB47AE0E4900CA745DE9 /* nyassistant.user.js in Resources */ = {isa = PBXBuildFile; fileRef = A7B10D2EB32E28371761B70F /* nyassistant.user.js */; };
+		168F7510315558D320F5483F /* overlay.html in Resources */ = {isa = PBXBuildFile; fileRef = 6368EBAB3BD487419A21286E /* overlay.html */; };
+		271A5436BF7671E8822AECC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013C1AB0C7512CD00558835D /* Assets.xcassets */; };
+		3A729F91AFF180368F612A9F /* NyanScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAB3C112BF5B130C6403A25 /* NyanScripts.swift */; };
+		3D151803130ADD143ABD7D40 /* nyan-host.js in Resources */ = {isa = PBXBuildFile; fileRef = AC32592A0038F19C97FBF235 /* nyan-host.js */; };
+		5377C067E6B395C75DF4C74C /* OverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66EE8EAF3A350F563AB82A /* OverlayController.swift */; };
+		6D85BAA55D70354D2E7B4F5C /* Desktop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099A180B5D1EEFA8E6CA46EE /* Desktop.swift */; };
+		6FB8C38213D65834130CA3BE /* room.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D4317EE14DB4E055F52F1AA /* room.html */; };
+		929312B743FD3C2801DB3828 /* nyan-host.js in Resources */ = {isa = PBXBuildFile; fileRef = AC32592A0038F19C97FBF235 /* nyan-host.js */; };
+		A4219154341F5AB2D32E6497 /* nyassistant.user.js in Resources */ = {isa = PBXBuildFile; fileRef = A7B10D2EB32E28371761B70F /* nyassistant.user.js */; };
+		A4D4D246C75277AD00664B8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013C1AB0C7512CD00558835D /* Assets.xcassets */; };
+		AB0F8815D560BC10381EE02B /* KeyTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2DEA49E8592DAFEF7E2499 /* KeyTap.swift */; };
+		AC9C476F789D9B2BEED4C972 /* NyAssistantMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFF80B5E9D632CB9889CF93 /* NyAssistantMacApp.swift */; };
+		AFEDB74FDB7E594A2EFEA26E /* NyanScripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAB3C112BF5B130C6403A25 /* NyanScripts.swift */; };
+		B336FAC4854A9DA4D8C324EE /* PetRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE549BA5B881F50B6D007A /* PetRoom.swift */; };
+		C2BB6617C86EDF117CF4D17A /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D8AB32A57870005749F4E /* Permissions.swift */; };
+		D79A7EF2A8684D49A1198577 /* NyAssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE479E6ED9EDCC890ACE00EE /* NyAssistantApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		043DD40290557694704A45DD /* PetRoom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PetRoom.swift; sourceTree = "<group>"; };
-		0915489864BB79567D61F086 /* Desktop.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Desktop.swift; sourceTree = "<group>"; };
-		1CCECB3AB9F107BF8852BC3A /* overlay.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; path = overlay.html; sourceTree = "<group>"; };
-		2030D2A06241D9EA327AD1A4 /* nyassistant.user.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; path = nyassistant.user.js; sourceTree = "<group>"; };
-		37B17B0E24F765FA35FC8740 /* NyAssistantMacApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyAssistantMacApp.swift; sourceTree = "<group>"; };
-		42D89FF2DCE72FD213BF5D69 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C5242ED1BAB7D1B9F721317 /* Permissions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
-		53B58B867FA1FCB6C1F8F01E /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		70F86E3562BCD841BBE6AD08 /* nyan-host.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; path = "nyan-host.js"; sourceTree = "<group>"; };
-		7384F8165EC87CE74FD46A30 /* NyAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NyAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		96CDAD17A5990702E7184274 /* NyAssistantApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyAssistantApp.swift; sourceTree = "<group>"; };
-		B68EFE4F1B9E510746E05037 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C660378F73ACDB7FEAA87961 /* NyanScripts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyanScripts.swift; sourceTree = "<group>"; };
-		CCE55DCE2320C870C0DB7366 /* KeyTap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeyTap.swift; sourceTree = "<group>"; };
-		D5AE2252B36B09A1FAE47977 /* NyAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NyAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D866FF5ACF70BDDEA03B0484 /* OverlayController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OverlayController.swift; sourceTree = "<group>"; };
-		E89ACEF37A63FF15355DD18E /* room.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; path = room.html; sourceTree = "<group>"; };
+		013C1AB0C7512CD00558835D /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		099A180B5D1EEFA8E6CA46EE /* Desktop.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Desktop.swift; sourceTree = "<group>"; };
+		28DC30D3166A781C22E32155 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C66EE8EAF3A350F563AB82A /* OverlayController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OverlayController.swift; sourceTree = "<group>"; };
+		3DAB3C112BF5B130C6403A25 /* NyanScripts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyanScripts.swift; sourceTree = "<group>"; };
+		4D4317EE14DB4E055F52F1AA /* room.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; path = room.html; sourceTree = "<group>"; };
+		6368EBAB3BD487419A21286E /* overlay.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; path = overlay.html; sourceTree = "<group>"; };
+		8B2DEA49E8592DAFEF7E2499 /* KeyTap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeyTap.swift; sourceTree = "<group>"; };
+		A3EE549BA5B881F50B6D007A /* PetRoom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PetRoom.swift; sourceTree = "<group>"; };
+		A7B10D2EB32E28371761B70F /* nyassistant.user.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; path = nyassistant.user.js; sourceTree = "<group>"; };
+		AC32592A0038F19C97FBF235 /* nyan-host.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; path = "nyan-host.js"; sourceTree = "<group>"; };
+		ADDE90C2F712900F2047314B /* NyAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NyAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE479E6ED9EDCC890ACE00EE /* NyAssistantApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyAssistantApp.swift; sourceTree = "<group>"; };
+		AEFF80B5E9D632CB9889CF93 /* NyAssistantMacApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NyAssistantMacApp.swift; sourceTree = "<group>"; };
+		C46D8AB32A57870005749F4E /* Permissions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
+		D6B16C94A3783370E580DB61 /* NyAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NyAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5BF918FFD8AB17A5BABA77B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		528A2DCF2417005CAF4924FE /* Frameworks */ = {
+		08B42E67C94A62C697AE359A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6CAEC2DA0F3DB255D2745F7B /* Frameworks */ = {
+		4B140C8450FF12B7525C9D24 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -64,124 +64,107 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0BFAD6A5CD7795B1115974E1 /* apps */ = {
+		0A3FF07F52491294B23E6909 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2EC320F1440DC9027426419E /* Shared */,
-				6F3581DE9242E72C99CF5E41 /* macOS */,
-				21AE6444AC1AC1A82B91391B /* iOS */,
+				ADDE90C2F712900F2047314B /* NyAssistant.app */,
+				D6B16C94A3783370E580DB61 /* NyAssistant.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		72D8BC0D103049CA3739FD33 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				AEFF80B5E9D632CB9889CF93 /* NyAssistantMacApp.swift */,
+				2C66EE8EAF3A350F563AB82A /* OverlayController.swift */,
+				099A180B5D1EEFA8E6CA46EE /* Desktop.swift */,
+				8B2DEA49E8592DAFEF7E2499 /* KeyTap.swift */,
+				C46D8AB32A57870005749F4E /* Permissions.swift */,
+				6368EBAB3BD487419A21286E /* overlay.html */,
+				28DC30D3166A781C22E32155 /* Info.plist */,
+			);
+			name = macOS;
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		83E70F7E7EC8B884C215F7A9 /* apps */ = {
+			isa = PBXGroup;
+			children = (
+				EE19C474E6E2B5501C1A25F5 /* Shared */,
+				72D8BC0D103049CA3739FD33 /* macOS */,
+				9EA482BC53BED8AC23B1368E /* iOS */,
 			);
 			name = apps;
 			path = apps;
 			sourceTree = "<group>";
 		};
-		21AE6444AC1AC1A82B91391B /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				96CDAD17A5990702E7184274 /* NyAssistantApp.swift */,
-				043DD40290557694704A45DD /* PetRoom.swift */,
-				E89ACEF37A63FF15355DD18E /* room.html */,
-				B68EFE4F1B9E510746E05037 /* Info.plist */,
-			);
-			name = iOS;
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		2EC320F1440DC9027426419E /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				C660378F73ACDB7FEAA87961 /* NyanScripts.swift */,
-				70F86E3562BCD841BBE6AD08 /* nyan-host.js */,
-				53B58B867FA1FCB6C1F8F01E /* Assets.xcassets */,
-			);
-			name = Shared;
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		3976A8DF05F8008148F2A62B /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		3ECFCA8AB632155139B95F15 /* OS X */ = {
+		9733D3B2F49F91C5146FB9C5 /* OS X */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		46BA64689198871067DB30E5 /* Products */ = {
+		9EA482BC53BED8AC23B1368E /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				D5AE2252B36B09A1FAE47977 /* NyAssistant.app */,
-				7384F8165EC87CE74FD46A30 /* NyAssistant.app */,
+				AE479E6ED9EDCC890ACE00EE /* NyAssistantApp.swift */,
+				A3EE549BA5B881F50B6D007A /* PetRoom.swift */,
+				4D4317EE14DB4E055F52F1AA /* room.html */,
+				F5BF918FFD8AB17A5BABA77B /* Info.plist */,
 			);
-			name = Products;
+			name = iOS;
+			path = iOS;
 			sourceTree = "<group>";
 		};
-		6AA37AF36B5ABB3FB55B13A2 /* Frameworks */ = {
+		E3FAE7294B7B9DF5C04957AF /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				3ECFCA8AB632155139B95F15 /* OS X */,
-				3976A8DF05F8008148F2A62B /* iOS */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		EE19C474E6E2B5501C1A25F5 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3DAB3C112BF5B130C6403A25 /* NyanScripts.swift */,
+				AC32592A0038F19C97FBF235 /* nyan-host.js */,
+				013C1AB0C7512CD00558835D /* Assets.xcassets */,
+			);
+			name = Shared;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		F377254F7ABE2D6F9BD2AA48 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9733D3B2F49F91C5146FB9C5 /* OS X */,
+				E3FAE7294B7B9DF5C04957AF /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6F3581DE9242E72C99CF5E41 /* macOS */ = {
+		F5F86F775D339097180B234E = {
 			isa = PBXGroup;
 			children = (
-				37B17B0E24F765FA35FC8740 /* NyAssistantMacApp.swift */,
-				D866FF5ACF70BDDEA03B0484 /* OverlayController.swift */,
-				0915489864BB79567D61F086 /* Desktop.swift */,
-				CCE55DCE2320C870C0DB7366 /* KeyTap.swift */,
-				4C5242ED1BAB7D1B9F721317 /* Permissions.swift */,
-				1CCECB3AB9F107BF8852BC3A /* overlay.html */,
-				42D89FF2DCE72FD213BF5D69 /* Info.plist */,
-			);
-			name = macOS;
-			path = macOS;
-			sourceTree = "<group>";
-		};
-		E2AD06F024BD896BC8553016 = {
-			isa = PBXGroup;
-			children = (
-				46BA64689198871067DB30E5 /* Products */,
-				6AA37AF36B5ABB3FB55B13A2 /* Frameworks */,
-				2030D2A06241D9EA327AD1A4 /* nyassistant.user.js */,
-				0BFAD6A5CD7795B1115974E1 /* apps */,
+				0A3FF07F52491294B23E6909 /* Products */,
+				F377254F7ABE2D6F9BD2AA48 /* Frameworks */,
+				A7B10D2EB32E28371761B70F /* nyassistant.user.js */,
+				83E70F7E7EC8B884C215F7A9 /* apps */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2E69F197C5B3E507D08DB6FC /* NyAssistant macOS */ = {
+		1255D35A7C86F7305BE74F50 /* NyAssistant iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1C5746CDEE26AA39F7AA0F8B /* Build configuration list for PBXNativeTarget "NyAssistant macOS" */;
+			buildConfigurationList = 2723E51959ED60CB0E5B8621 /* Build configuration list for PBXNativeTarget "NyAssistant iOS" */;
 			buildPhases = (
-				CA7D49111EC7F7EF2EFEB8FA /* Sources */,
-				528A2DCF2417005CAF4924FE /* Frameworks */,
-				FD2CD67885A60804DD8BF906 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "NyAssistant macOS";
-			productName = "NyAssistant macOS";
-			productReference = D5AE2252B36B09A1FAE47977 /* NyAssistant.app */;
-			productType = "com.apple.product-type.application";
-		};
-		DAA575BC445AECAC4D157BF7 /* NyAssistant iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CAE59F5DA59BEF63A7161A0C /* Build configuration list for PBXNativeTarget "NyAssistant iOS" */;
-			buildPhases = (
-				5D620977E6FC982721338CB1 /* Sources */,
-				6CAEC2DA0F3DB255D2745F7B /* Frameworks */,
-				FDEF90D6066734A6537D8457 /* Resources */,
+				2E267E0A166A087ED84F9C38 /* Sources */,
+				08B42E67C94A62C697AE359A /* Frameworks */,
+				E3AA74BAFD9E80CA731F1349 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -189,20 +172,37 @@
 			);
 			name = "NyAssistant iOS";
 			productName = "NyAssistant iOS";
-			productReference = 7384F8165EC87CE74FD46A30 /* NyAssistant.app */;
+			productReference = D6B16C94A3783370E580DB61 /* NyAssistant.app */;
+			productType = "com.apple.product-type.application";
+		};
+		71A787550B4D87279DC506EA /* NyAssistant macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09B09C61AF15AF7C47443BDD /* Build configuration list for PBXNativeTarget "NyAssistant macOS" */;
+			buildPhases = (
+				834FC8398E2ECD371119870D /* Sources */,
+				4B140C8450FF12B7525C9D24 /* Frameworks */,
+				39D16738D37890AD5B3C0B17 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "NyAssistant macOS";
+			productName = "NyAssistant macOS";
+			productReference = ADDE90C2F712900F2047314B /* NyAssistant.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		13E529903F8390F9C8968FDB /* Project object */ = {
+		007967B54EAEFF2E7AEEDE18 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 			};
-			buildConfigurationList = A1E0DFCDFF464397F13C348E /* Build configuration list for PBXProject "NyAssistant" */;
+			buildConfigurationList = 51ECAA991A8E7E0AA3C1B837 /* Build configuration list for PBXProject "NyAssistant" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -210,72 +210,152 @@
 				en,
 				Base,
 			);
-			mainGroup = E2AD06F024BD896BC8553016;
+			mainGroup = F5F86F775D339097180B234E;
 			minimizedProjectReferenceProxies = 0;
 			preferredProjectObjectVersion = 100;
-			productRefGroup = 46BA64689198871067DB30E5 /* Products */;
+			productRefGroup = 0A3FF07F52491294B23E6909 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2E69F197C5B3E507D08DB6FC /* NyAssistant macOS */,
-				DAA575BC445AECAC4D157BF7 /* NyAssistant iOS */,
+				71A787550B4D87279DC506EA /* NyAssistant macOS */,
+				1255D35A7C86F7305BE74F50 /* NyAssistant iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		FD2CD67885A60804DD8BF906 /* Resources */ = {
+		39D16738D37890AD5B3C0B17 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CC227D721B25547AA03E236 /* nyassistant.user.js in Resources */,
-				3E6ACABD108D463CA9BDB71C /* nyan-host.js in Resources */,
-				9D418B51ABA457564577548A /* overlay.html in Resources */,
-				121A92D402B6F8450178C094 /* Assets.xcassets in Resources */,
+				1479FB47AE0E4900CA745DE9 /* nyassistant.user.js in Resources */,
+				929312B743FD3C2801DB3828 /* nyan-host.js in Resources */,
+				168F7510315558D320F5483F /* overlay.html in Resources */,
+				271A5436BF7671E8822AECC4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FDEF90D6066734A6537D8457 /* Resources */ = {
+		E3AA74BAFD9E80CA731F1349 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				421DD2546378E6677CE18229 /* nyassistant.user.js in Resources */,
-				1830BD337C0764424EFBD29E /* nyan-host.js in Resources */,
-				E4264619CB5F2C400FE19FA3 /* room.html in Resources */,
-				4F5662D57E89FF9D206A1457 /* Assets.xcassets in Resources */,
+				A4219154341F5AB2D32E6497 /* nyassistant.user.js in Resources */,
+				3D151803130ADD143ABD7D40 /* nyan-host.js in Resources */,
+				6FB8C38213D65834130CA3BE /* room.html in Resources */,
+				A4D4D246C75277AD00664B8A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5D620977E6FC982721338CB1 /* Sources */ = {
+		2E267E0A166A087ED84F9C38 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D402DB2CB059392F2DBA6958 /* NyAssistantApp.swift in Sources */,
-				311EFA0BC8BE7F90AF442A75 /* PetRoom.swift in Sources */,
-				76F91ABE6F71C7446CA73888 /* NyanScripts.swift in Sources */,
+				D79A7EF2A8684D49A1198577 /* NyAssistantApp.swift in Sources */,
+				B336FAC4854A9DA4D8C324EE /* PetRoom.swift in Sources */,
+				3A729F91AFF180368F612A9F /* NyanScripts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CA7D49111EC7F7EF2EFEB8FA /* Sources */ = {
+		834FC8398E2ECD371119870D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7161BC240E956F6ABD2B407 /* NyAssistantMacApp.swift in Sources */,
-				C530F0BE3B3B7582F32328B5 /* OverlayController.swift in Sources */,
-				47C36EC9A78381A68F668739 /* Desktop.swift in Sources */,
-				B6438F98B1A94D9067DE992F /* KeyTap.swift in Sources */,
-				C5DBB24DF746F920ACC46779 /* Permissions.swift in Sources */,
-				14A26BFFAB4B40EF9B3959CF /* NyanScripts.swift in Sources */,
+				AC9C476F789D9B2BEED4C972 /* NyAssistantMacApp.swift in Sources */,
+				5377C067E6B395C75DF4C74C /* OverlayController.swift in Sources */,
+				6D85BAA55D70354D2E7B4F5C /* Desktop.swift in Sources */,
+				AB0F8815D560BC10381EE02B /* KeyTap.swift in Sources */,
+				C2BB6617C86EDF117CF4D17A /* Permissions.swift in Sources */,
+				AFEDB74FDB7E594A2EFEA26E /* NyanScripts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3DF1A6FFF76965FFAA19E19E /* Release */ = {
+		3E71E15533CF71A0A4F637D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		4885F15CF7BDC6EC13791968 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9S6NGSR8A;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = apps/iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.overlord.nyassistant.ios;
+				PRODUCT_NAME = NyAssistant;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		74124CBDD047DCCDE61F1C9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
@@ -291,16 +371,16 @@
 				INFOPLIST_FILE = apps/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 0.11.0;
+				MARKETING_VERSION = 0.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.overlord.nyassistant;
 				PRODUCT_NAME = NyAssistant;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 			};
-			name = Release;
+			name = Debug;
 		};
-		962C2C78B879D2E4058C9DD2 /* Release */ = {
+		8E70B5B69FA16E82A9BE0E58 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -315,18 +395,42 @@
 				INFOPLIST_FILE = apps/iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.11.0;
+				MARKETING_VERSION = 0.12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.overlord.nyassistant.ios;
 				PRODUCT_NAME = NyAssistant;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
+			};
+			name = Debug;
+		};
+		D790CDEFF00E81638CCDA3F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9S6NGSR8A;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = apps/macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.overlord.nyassistant;
+				PRODUCT_NAME = NyAssistant;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		C4F0EFFC4688EDB22D8EF1E1 /* Debug */ = {
+		E0C36EB41734B4939A95276B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -387,141 +491,37 @@
 			};
 			name = Debug;
 		};
-		D6F8824303456C00A399D14B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W9S6NGSR8A;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = apps/iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.overlord.nyassistant.ios;
-				PRODUCT_NAME = NyAssistant;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		DDE0D11E64CC7B25AF8B1A6E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = MacAppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W9S6NGSR8A;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = apps/macOS/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 0.11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.overlord.nyassistant;
-				PRODUCT_NAME = NyAssistant;
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		EE0DA437A4408694E138136E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1C5746CDEE26AA39F7AA0F8B /* Build configuration list for PBXNativeTarget "NyAssistant macOS" */ = {
+		09B09C61AF15AF7C47443BDD /* Build configuration list for PBXNativeTarget "NyAssistant macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DF1A6FFF76965FFAA19E19E /* Release */,
-				DDE0D11E64CC7B25AF8B1A6E /* Debug */,
+				D790CDEFF00E81638CCDA3F9 /* Release */,
+				74124CBDD047DCCDE61F1C9C /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1E0DFCDFF464397F13C348E /* Build configuration list for PBXProject "NyAssistant" */ = {
+		2723E51959ED60CB0E5B8621 /* Build configuration list for PBXNativeTarget "NyAssistant iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C4F0EFFC4688EDB22D8EF1E1 /* Debug */,
-				EE0DA437A4408694E138136E /* Release */,
+				4885F15CF7BDC6EC13791968 /* Release */,
+				8E70B5B69FA16E82A9BE0E58 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CAE59F5DA59BEF63A7161A0C /* Build configuration list for PBXNativeTarget "NyAssistant iOS" */ = {
+		51ECAA991A8E7E0AA3C1B837 /* Build configuration list for PBXProject "NyAssistant" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				962C2C78B879D2E4058C9DD2 /* Release */,
-				D6F8824303456C00A399D14B /* Debug */,
+				E0C36EB41734B4939A95276B /* Debug */,
+				3E71E15533CF71A0A4F637D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 13E529903F8390F9C8968FDB /* Project object */;
+	rootObject = 007967B54EAEFF2E7AEEDE18 /* Project object */;
 }

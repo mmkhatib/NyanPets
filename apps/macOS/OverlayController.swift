@@ -25,6 +25,7 @@ struct CatState {
     var size = 2
     var sizes = 5
     var sizeName = "Normal"
+    var holidays = HolidayInfo()
 }
 
 /// The menu bar's switches, saved in UserDefaults. All on by default.
@@ -178,6 +179,9 @@ final class OverlayController: NSObject, WKScriptMessageHandler, WKNavigationDel
         webView.nyanAct(name)
     }
 
+    func setTheme(_ t: String) { webView.nyanTheme(t) }
+    func setCostume(_ holiday: String, _ costume: String) { webView.nyanCostume(holiday, costume) }
+
     /// Settings changed in the menu.
     func prefsChanged() {
         if !Prefs.on(Prefs.perchInApps) { scanned.removeAll() }
@@ -207,6 +211,7 @@ final class OverlayController: NSObject, WKScriptMessageHandler, WKNavigationDel
             state.size = body["size"] as? Int ?? state.size
             state.sizes = body["sizes"] as? Int ?? state.sizes
             state.sizeName = body["sizeName"] as? String ?? state.sizeName
+            if let h = HolidayInfo(body) { state.holidays = h }
             onStateChange?(state)
         case "grab":
             scanAll()
